@@ -14,12 +14,19 @@ namespace HamFAXSendTool
 
         private void SendButton_Click(object sender, EventArgs e)
         {
-
+            PictSelectButton.Enabled = false;
+            WAVEBbutton.Enabled = false;
+            SendButton.Enabled = false;
+            StopButton.Enabled = true;
+            StopButton.Enabled = false;
         }
 
         private void StopButton_Click(object sender, EventArgs e)
         {
-
+            PictSelectButton.Enabled = true;
+            WAVEBbutton.Enabled = true;
+            SendButton.Enabled = true;
+            StopButton.Enabled = false;
         }
 
         private void EndButton_Click(object sender, EventArgs e)

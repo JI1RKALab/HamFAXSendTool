@@ -36,21 +36,26 @@
             StatusTitleLable = new Label();
             IOCComboBox = new ComboBox();
             IOCTitleLable = new Label();
+            WAVEBbutton = new Button();
+            menuStrip1 = new MenuStrip();
+            設定メニューMToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(12, 12);
+            pictureBox1.Location = new Point(12, 38);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(745, 487);
+            pictureBox1.Size = new Size(967, 548);
             pictureBox1.TabIndex = 0;
             pictureBox1.TabStop = false;
             // 
             // PictSelectButton
             // 
             PictSelectButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            PictSelectButton.Location = new Point(779, 12);
+            PictSelectButton.Location = new Point(1006, 38);
             PictSelectButton.Name = "PictSelectButton";
             PictSelectButton.Size = new Size(193, 48);
             PictSelectButton.TabIndex = 1;
@@ -60,8 +65,9 @@
             // 
             // SendButton
             // 
+            SendButton.Enabled = false;
             SendButton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            SendButton.Location = new Point(779, 186);
+            SendButton.Location = new Point(1006, 283);
             SendButton.Name = "SendButton";
             SendButton.Size = new Size(193, 48);
             SendButton.TabIndex = 2;
@@ -71,8 +77,10 @@
             // 
             // StopButton
             // 
+            StopButton.AutoSize = true;
+            StopButton.Enabled = false;
             StopButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            StopButton.Location = new Point(779, 373);
+            StopButton.Location = new Point(1006, 458);
             StopButton.Name = "StopButton";
             StopButton.Size = new Size(193, 48);
             StopButton.TabIndex = 3;
@@ -83,7 +91,7 @@
             // EndButton
             // 
             EndButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            EndButton.Location = new Point(779, 451);
+            EndButton.Location = new Point(1006, 538);
             EndButton.Name = "EndButton";
             EndButton.Size = new Size(193, 48);
             EndButton.TabIndex = 4;
@@ -95,7 +103,7 @@
             // 
             StatusTitleLable.AutoSize = true;
             StatusTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            StatusTitleLable.Location = new Point(779, 261);
+            StatusTitleLable.Location = new Point(1006, 357);
             StatusTitleLable.Name = "StatusTitleLable";
             StatusTitleLable.Size = new Size(92, 28);
             StatusTitleLable.TabIndex = 5;
@@ -106,7 +114,7 @@
             IOCComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             IOCComboBox.FormattingEnabled = true;
             IOCComboBox.Items.AddRange(new object[] { "288(アマチュア無線モード)", "576(業務局モード)" });
-            IOCComboBox.Location = new Point(779, 121);
+            IOCComboBox.Location = new Point(1006, 147);
             IOCComboBox.Name = "IOCComboBox";
             IOCComboBox.Size = new Size(193, 28);
             IOCComboBox.TabIndex = 6;
@@ -115,17 +123,52 @@
             // 
             IOCTitleLable.AutoSize = true;
             IOCTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            IOCTitleLable.Location = new Point(779, 78);
+            IOCTitleLable.Location = new Point(1006, 104);
             IOCTitleLable.Name = "IOCTitleLable";
             IOCTitleLable.Size = new Size(97, 28);
             IOCTitleLable.TabIndex = 7;
             IOCTitleLable.Text = "協動係数:";
             // 
+            // WAVEBbutton
+            // 
+            WAVEBbutton.Enabled = false;
+            WAVEBbutton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            WAVEBbutton.Location = new Point(1006, 207);
+            WAVEBbutton.Name = "WAVEBbutton";
+            WAVEBbutton.Size = new Size(193, 48);
+            WAVEBbutton.TabIndex = 8;
+            WAVEBbutton.Text = "FAX信号保存";
+            WAVEBbutton.UseVisualStyleBackColor = true;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(20, 20);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { 設定メニューMToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Size = new Size(1211, 28);
+            menuStrip1.TabIndex = 9;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // 設定メニューMToolStripMenuItem
+            // 
+            設定メニューMToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            設定メニューMToolStripMenuItem.Name = "設定メニューMToolStripMenuItem";
+            設定メニューMToolStripMenuItem.Size = new Size(118, 24);
+            設定メニューMToolStripMenuItem.Text = "設定メニュー(&M)";
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(205, 26);
+            toolStripMenuItem1.Text = "Comポート設定(&C)";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(984, 511);
+            ClientSize = new Size(1211, 605);
+            Controls.Add(WAVEBbutton);
             Controls.Add(IOCTitleLable);
             Controls.Add(IOCComboBox);
             Controls.Add(StatusTitleLable);
@@ -134,10 +177,14 @@
             Controls.Add(SendButton);
             Controls.Add(PictSelectButton);
             Controls.Add(pictureBox1);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
             MaximizeBox = false;
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,5 +199,9 @@
         private Label StatusTitleLable;
         private ComboBox IOCComboBox;
         private Label IOCTitleLable;
+        private Button WAVEBbutton;
+        private MenuStrip menuStrip1;
+        private ToolStripMenuItem 設定メニューMToolStripMenuItem;
+        private ToolStripMenuItem toolStripMenuItem1;
     }
 }
