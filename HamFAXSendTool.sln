@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HamFAXSendTool", "HamFAXSendTool\HamFAXSendTool.csproj", "{5EE65518-ADA0-44DF-B946-B1B4DB7D2A5C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeFax", "RadioFAXSendTool\WeFax.csproj", "{BBA302EE-C9D8-42DB-9973-36E7CE70DAE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5EE65518-ADA0-44DF-B946-B1B4DB7D2A5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EE65518-ADA0-44DF-B946-B1B4DB7D2A5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EE65518-ADA0-44DF-B946-B1B4DB7D2A5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EE65518-ADA0-44DF-B946-B1B4DB7D2A5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA302EE-C9D8-42DB-9973-36E7CE70DAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA302EE-C9D8-42DB-9973-36E7CE70DAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA302EE-C9D8-42DB-9973-36E7CE70DAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA302EE-C9D8-42DB-9973-36E7CE70DAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {03CE2626-00B6-4068-88B0-74445E79E647}
+	EndGlobalSection
+EndGlobal
