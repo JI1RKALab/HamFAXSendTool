@@ -34,5 +34,11 @@ namespace HamFAXSendTool
             // •Â‚¶‚é
             this.Close();
         }
+
+        private void ComPoatSettingStripMenu_Click(object sender, EventArgs e)
+        {
+            Form2 n = new();
+            n.ShowDialog();
+        }
     }
 }

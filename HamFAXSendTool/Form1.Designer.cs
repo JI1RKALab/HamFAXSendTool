@@ -39,7 +39,7 @@
             WAVEBbutton = new Button();
             menuStrip1 = new MenuStrip();
             設定メニューMToolStripMenuItem = new ToolStripMenuItem();
-            toolStripMenuItem1 = new ToolStripMenuItem();
+            ComPoatSettingStripMenu = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -152,16 +152,17 @@
             // 
             // 設定メニューMToolStripMenuItem
             // 
-            設定メニューMToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            設定メニューMToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ComPoatSettingStripMenu });
             設定メニューMToolStripMenuItem.Name = "設定メニューMToolStripMenuItem";
             設定メニューMToolStripMenuItem.Size = new Size(118, 24);
             設定メニューMToolStripMenuItem.Text = "設定メニュー(&M)";
             // 
-            // toolStripMenuItem1
+            // ComPoatSettingStripMenu
             // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(205, 26);
-            toolStripMenuItem1.Text = "Comポート設定(&C)";
+            ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
+            ComPoatSettingStripMenu.Size = new Size(224, 26);
+            ComPoatSettingStripMenu.Text = "Comポート設定(&C)";
+            ComPoatSettingStripMenu.Click += ComPoatSettingStripMenu_Click;
             // 
             // Form1
             // 
@@ -202,6 +203,6 @@
         private Button WAVEBbutton;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem 設定メニューMToolStripMenuItem;
-        private ToolStripMenuItem toolStripMenuItem1;
+        private ToolStripMenuItem ComPoatSettingStripMenu;
     }
 }
