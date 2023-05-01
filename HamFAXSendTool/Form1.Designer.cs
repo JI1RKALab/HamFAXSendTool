@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            pictureBox1 = new PictureBox();
+            SendPictureBox = new PictureBox();
             PictSelectButton = new Button();
             SendButton = new Button();
             StopButton = new Button();
@@ -37,20 +37,21 @@
             IOCComboBox = new ComboBox();
             IOCTitleLable = new Label();
             WAVEBbutton = new Button();
-            menuStrip1 = new MenuStrip();
+            TopMenuStrip = new MenuStrip();
             設定メニューMToolStripMenuItem = new ToolStripMenuItem();
             ComPoatSettingStripMenu = new ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            menuStrip1.SuspendLayout();
+            ヘルプHToolStripMenuItem = new ToolStripMenuItem();
+            ((System.ComponentModel.ISupportInitialize)SendPictureBox).BeginInit();
+            TopMenuStrip.SuspendLayout();
             SuspendLayout();
             // 
-            // pictureBox1
+            // SendPictureBox
             // 
-            pictureBox1.Location = new Point(12, 38);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(967, 548);
-            pictureBox1.TabIndex = 0;
-            pictureBox1.TabStop = false;
+            SendPictureBox.Location = new Point(12, 38);
+            SendPictureBox.Name = "SendPictureBox";
+            SendPictureBox.Size = new Size(967, 548);
+            SendPictureBox.TabIndex = 0;
+            SendPictureBox.TabStop = false;
             // 
             // PictSelectButton
             // 
@@ -140,15 +141,15 @@
             WAVEBbutton.Text = "FAX信号保存";
             WAVEBbutton.UseVisualStyleBackColor = true;
             // 
-            // menuStrip1
+            // TopMenuStrip
             // 
-            menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { 設定メニューMToolStripMenuItem });
-            menuStrip1.Location = new Point(0, 0);
-            menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1211, 28);
-            menuStrip1.TabIndex = 9;
-            menuStrip1.Text = "menuStrip1";
+            TopMenuStrip.ImageScalingSize = new Size(20, 20);
+            TopMenuStrip.Items.AddRange(new ToolStripItem[] { 設定メニューMToolStripMenuItem, ヘルプHToolStripMenuItem });
+            TopMenuStrip.Location = new Point(0, 0);
+            TopMenuStrip.Name = "TopMenuStrip";
+            TopMenuStrip.Size = new Size(1211, 28);
+            TopMenuStrip.TabIndex = 9;
+            TopMenuStrip.Text = "menuStrip1";
             // 
             // 設定メニューMToolStripMenuItem
             // 
@@ -160,9 +161,15 @@
             // ComPoatSettingStripMenu
             // 
             ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
-            ComPoatSettingStripMenu.Size = new Size(205, 26);
-            ComPoatSettingStripMenu.Text = "Comポート設定(&C)";
-            ComPoatSettingStripMenu.Click += ComPoatSettingStripMenu_Click;
+            ComPoatSettingStripMenu.Size = new Size(224, 26);
+            ComPoatSettingStripMenu.Text = "設定(&S)";
+            ComPoatSettingStripMenu.Click += SettingStripMenu_Click;
+            // 
+            // ヘルプHToolStripMenuItem
+            // 
+            ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
+            ヘルプHToolStripMenuItem.Size = new Size(79, 24);
+            ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)";
             // 
             // Form1
             // 
@@ -177,23 +184,23 @@
             Controls.Add(StopButton);
             Controls.Add(SendButton);
             Controls.Add(PictSelectButton);
-            Controls.Add(pictureBox1);
-            Controls.Add(menuStrip1);
-            MainMenuStrip = menuStrip1;
+            Controls.Add(SendPictureBox);
+            Controls.Add(TopMenuStrip);
+            MainMenuStrip = TopMenuStrip;
             MaximizeBox = false;
             Name = "Form1";
             Text = "Form1";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)SendPictureBox).EndInit();
+            TopMenuStrip.ResumeLayout(false);
+            TopMenuStrip.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private PictureBox pictureBox1;
+        private PictureBox SendPictureBox;
         private Button PictSelectButton;
         private Button SendButton;
         private Button StopButton;
@@ -202,8 +209,9 @@
         private ComboBox IOCComboBox;
         private Label IOCTitleLable;
         private Button WAVEBbutton;
-        private MenuStrip menuStrip1;
+        private MenuStrip TopMenuStrip;
         private ToolStripMenuItem 設定メニューMToolStripMenuItem;
         private ToolStripMenuItem ComPoatSettingStripMenu;
+        private ToolStripMenuItem ヘルプHToolStripMenuItem;
     }
 }
