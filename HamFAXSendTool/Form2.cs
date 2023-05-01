@@ -16,6 +16,16 @@ namespace HamFAXSendTool
     public partial class Form2 : Form
     {
         /// <summary>
+        /// シリアルポート
+        /// </summary>
+        SerialPortControlClass SerialPortController = null;
+
+        /// <summary>
+        /// Comポート
+        /// </summary>
+        bool ComPortChecker = new();
+
+        /// <summary>
         /// イニシャライズ
         /// </summary>
         public Form2()
@@ -39,6 +49,64 @@ namespace HamFAXSendTool
             {
                 // Add
                 SoundCardListBox.Items.Add(CardName);
+            }
+
+            // 読み込み
+            if (string.IsNullOrWhiteSpace(SettingClass.ComPort))
+            {
+                // index
+                ComPortListBox.SelectedIndex = -1;
+            }
+            else
+            {
+                // set
+                ComPortListBox.SelectedItem = SettingClass.ComPort;
+            }
+            if (string.IsNullOrWhiteSpace(SettingClass.ComSet))
+            {
+                // index
+                ComVerListBox.SelectedIndex = -1;
+            }
+            else
+            {
+                // OK
+                ComVerListBox.SelectedItem = SettingClass.ComSet;
+            }
+            if (SettingClass.ComSpeed > 0)
+            {
+                // ok
+                BPSTextBox.Text = SettingClass.ComSpeed.ToString();
+            }
+            else
+            {
+                // ok
+                BPSTextBox.Text = string.Empty;
+            }
+            if (string.IsNullOrWhiteSpace(SettingClass.SoundCard))
+            {
+                // ok
+                SoundCardListBox.SelectedIndex = -1;
+            }
+            else
+            {
+                // ok
+                SoundCardListBox.SelectedItem = SettingClass.SoundCard;
+            }
+
+            // check
+            if (!string.IsNullOrWhiteSpace(SettingClass.ComPort) &&
+                !string.IsNullOrWhiteSpace(SettingClass.ComSet) &&
+                SettingClass.ComSpeed > 0)
+            {
+                // OK
+                SerialPortController = new(ComPortListBox.SelectedItem.ToString(),
+                                                            ComVerListBox.SelectedItem.ToString(),
+                                                            int.Parse(BPSTextBox.Text));
+            }
+            else
+            {
+                // Skip
+                Console.Write("Skip");
             }
         }
 
@@ -92,7 +160,49 @@ namespace HamFAXSendTool
             }
             else
             {
-                // Error
+                // start
+                try
+                {
+                    if (SerialPortController is null)
+                    {
+                        // Error
+                        MessageBox.Show("COMポートに未設定項目があります", "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                    else
+                    {
+                        if (ComPortChecker)
+                        {
+                            // OK
+                            SerialPortController.SerialPortControlClose();
+                            ((Button)sender).Text = "テスト停止";
+                            ((Button)sender).BackColor = SystemColors.Control;
+                            ((Button)sender).ForeColor = SystemColors.ControlText;
+                            SettingButton.Enabled = true;
+                            CloseButton.Enabled = true;
+                            ComPortChecker = false;
+                            new SettingClass().SettingFileSave(ComPortListBox.SelectedItem.ToString(),
+                                                                ComVerListBox.SelectedItem.ToString(),
+                                                                int.Parse(BPSTextBox.Text),
+                                                                SoundCardListBox.SelectedItem.ToString());
+                        }
+                        else
+                        {
+                            // OK
+                            SerialPortController.SerialPortControlOpen();
+                            ((Button)sender).Text = "テスト停止";
+                            ((Button)sender).BackColor = Color.Red;
+                            ((Button)sender).ForeColor = Color.White;
+                            SettingButton.Enabled = false;
+                            CloseButton.Enabled = false;
+                            ComPortChecker = true;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Error
+                    MessageBox.Show("下記エラーが発生しました" + Environment.NewLine + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -156,7 +266,11 @@ namespace HamFAXSendTool
             }
             else
             {
-                // Error
+                // 保存
+                new SettingClass().SettingFileSave(ComPortListBox.SelectedItem.ToString(),
+                                                    ComVerListBox.SelectedItem.ToString(),
+                                                    int.Parse(BPSTextBox.Text),
+                                                    SoundCardListBox.SelectedItem.ToString());
             }
         }
 

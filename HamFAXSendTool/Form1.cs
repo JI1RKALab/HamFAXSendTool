@@ -7,6 +7,11 @@ namespace HamFAXSendTool
             InitializeComponent();
         }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            new SettingClass().SettingFileLoad();
+        }
+
         private void PictSelectButton_Click(object sender, EventArgs e)
         {
 
@@ -37,8 +42,7 @@ namespace HamFAXSendTool
 
         private void ComPoatSettingStripMenu_Click(object sender, EventArgs e)
         {
-            Form2 n = new();
-            n.ShowDialog();
+            new Form2().ShowDialog();
         }
     }
 }

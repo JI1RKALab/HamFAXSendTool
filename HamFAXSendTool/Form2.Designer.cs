@@ -120,7 +120,7 @@
             ComTestButton.Name = "ComTestButton";
             ComTestButton.Size = new Size(193, 48);
             ComTestButton.TabIndex = 9;
-            ComTestButton.Text = "テスト";
+            ComTestButton.Text = "テスト開始";
             ComTestButton.UseVisualStyleBackColor = true;
             ComTestButton.Click += ComTestButton_Click;
             // 

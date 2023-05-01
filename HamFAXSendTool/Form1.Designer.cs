@@ -160,7 +160,7 @@
             // ComPoatSettingStripMenu
             // 
             ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
-            ComPoatSettingStripMenu.Size = new Size(224, 26);
+            ComPoatSettingStripMenu.Size = new Size(205, 26);
             ComPoatSettingStripMenu.Text = "Comポート設定(&C)";
             ComPoatSettingStripMenu.Click += ComPoatSettingStripMenu_Click;
             // 
@@ -183,6 +183,7 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
