@@ -36,6 +36,8 @@
             CloseButton = new Button();
             ComTestLabel = new Label();
             ComTestButton = new Button();
+            ComVerListBox = new ListBox();
+            ComVerLabel = new Label();
             SuspendLayout();
             // 
             // ComPortLabel
@@ -61,67 +63,91 @@
             // 
             SoundCardListBox.FormattingEnabled = true;
             SoundCardListBox.ItemHeight = 20;
-            SoundCardListBox.Location = new Point(242, 52);
+            SoundCardListBox.Location = new Point(470, 52);
             SoundCardListBox.Name = "SoundCardListBox";
             SoundCardListBox.Size = new Size(306, 284);
-            SoundCardListBox.TabIndex = 3;
+            SoundCardListBox.TabIndex = 5;
             // 
             // SoundCardLabel
             // 
             SoundCardLabel.AutoSize = true;
             SoundCardLabel.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            SoundCardLabel.Location = new Point(242, 9);
+            SoundCardLabel.Location = new Point(470, 9);
             SoundCardLabel.Name = "SoundCardLabel";
             SoundCardLabel.Size = new Size(150, 25);
-            SoundCardLabel.TabIndex = 2;
+            SoundCardLabel.TabIndex = 4;
             SoundCardLabel.Text = "サウンドカード設定";
             // 
             // SettingButton
             // 
             SettingButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            SettingButton.Location = new Point(39, 444);
+            SettingButton.Location = new Point(366, 423);
             SettingButton.Name = "SettingButton";
             SettingButton.Size = new Size(193, 48);
-            SettingButton.TabIndex = 5;
+            SettingButton.TabIndex = 8;
             SettingButton.Text = "設定";
             SettingButton.UseVisualStyleBackColor = true;
+            SettingButton.Click += SettingButton_Click;
             // 
             // CloseButton
             // 
             CloseButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            CloseButton.Location = new Point(355, 444);
+            CloseButton.Location = new Point(583, 423);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(193, 48);
-            CloseButton.TabIndex = 6;
+            CloseButton.TabIndex = 9;
             CloseButton.Text = "閉じる";
             CloseButton.UseVisualStyleBackColor = true;
+            CloseButton.Click += CloseButton_Click;
             // 
             // ComTestLabel
             // 
             ComTestLabel.AutoSize = true;
             ComTestLabel.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            ComTestLabel.Location = new Point(12, 356);
+            ComTestLabel.Location = new Point(12, 368);
             ComTestLabel.Name = "ComTestLabel";
             ComTestLabel.Size = new Size(141, 25);
-            ComTestLabel.TabIndex = 7;
+            ComTestLabel.TabIndex = 6;
             ComTestLabel.Text = "COMポートテスト";
             // 
             // ComTestButton
             // 
             ComTestButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            ComTestButton.Location = new Point(199, 372);
+            ComTestButton.Location = new Point(159, 356);
             ComTestButton.Name = "ComTestButton";
             ComTestButton.Size = new Size(193, 48);
-            ComTestButton.TabIndex = 8;
+            ComTestButton.TabIndex = 7;
             ComTestButton.Text = "テスト";
             ComTestButton.UseVisualStyleBackColor = true;
             ComTestButton.Click += ComTestButton_Click;
+            // 
+            // ComVerListBox
+            // 
+            ComVerListBox.FormattingEnabled = true;
+            ComVerListBox.ItemHeight = 20;
+            ComVerListBox.Items.AddRange(new object[] { "RTS", "DTS" });
+            ComVerListBox.Location = new Point(243, 52);
+            ComVerListBox.Name = "ComVerListBox";
+            ComVerListBox.Size = new Size(193, 284);
+            ComVerListBox.TabIndex = 3;
+            // 
+            // ComVerLabel
+            // 
+            ComVerLabel.AutoSize = true;
+            ComVerLabel.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            ComVerLabel.Location = new Point(243, 9);
+            ComVerLabel.Name = "ComVerLabel";
+            ComVerLabel.Size = new Size(126, 25);
+            ComVerLabel.TabIndex = 2;
+            ComVerLabel.Text = "通信方法設定";
             // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(577, 515);
+            ClientSize = new Size(797, 491);
+            Controls.Add(ComVerListBox);
+            Controls.Add(ComVerLabel);
             Controls.Add(ComTestButton);
             Controls.Add(ComTestLabel);
             Controls.Add(CloseButton);
@@ -148,5 +174,7 @@
         private Button CloseButton;
         private Label ComTestLabel;
         private Button ComTestButton;
+        private ListBox ComVerListBox;
+        private Label ComVerLabel;
     }
 }
