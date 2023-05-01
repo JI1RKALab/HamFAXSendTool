@@ -15,15 +15,24 @@ namespace HamFAXSendTool
 {
     public partial class Form2 : Form
     {
+        /// <summary>
+        /// イニシャライズ
+        /// </summary>
         public Form2()
         {
+            // 処理
             InitializeComponent();
         }
 
+        /// <summary>
+        /// 表示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form2_Load(object sender, EventArgs e)
         {
+            // サウンドカード取得
             List<NAudio.Wave.DirectSoundDeviceInfo> Capabilities = NAudio.Wave.DirectSoundOut.Devices.ToList();
-            //List<string> DeviceList = Capabilities.Select(x => x.ModuleName).ToList();
 
             // ループ
             foreach (string CardName in Capabilities.Select(x => x.Description).ToList())
@@ -64,6 +73,16 @@ namespace HamFAXSendTool
                 // OK
                 Console.WriteLine("OK");
             }
+            if (string.IsNullOrEmpty(BPSTextBox.Text))
+            {
+                // 通信方式
+                ErrorList.Add("・通信速度入力");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
 
             // はい
             if (ErrorList.Count > 0)
@@ -77,7 +96,11 @@ namespace HamFAXSendTool
             }
         }
 
-        // 未選択判定
+        /// <summary>
+        /// 未選択判定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SettingButton_Click(object sender, EventArgs e)
         {
             // リスト
@@ -98,6 +121,16 @@ namespace HamFAXSendTool
             {
                 // 通信方式
                 ErrorList.Add("・COM通信方式");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+            if (string.IsNullOrEmpty(BPSTextBox.Text))
+            {
+                // 通信方式
+                ErrorList.Add("・通信速度入力");
             }
             else
             {
@@ -127,6 +160,10 @@ namespace HamFAXSendTool
             }
         }
 
+        /// <summary>
+        /// OK
+        /// </summary>
+        /// <param name="ErrorList"></param>
         private void ErrorDisp(List<string> ErrorList)
         {
             // エラー
@@ -145,6 +182,38 @@ namespace HamFAXSendTool
         {
             // OK
             this.Close();
+        }
+
+        /// <summary>
+        /// BPS入力
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void BPSTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // バックスペースが押された時は有効（Deleteキーも有効）
+            if (e.KeyChar == '\b')
+            {
+                // OK
+                return;
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+
+            // 数値0～9以外が押された時はイベントをキャンセルする
+            if ((e.KeyChar < '0' || '9' < e.KeyChar))
+            {
+                // OK
+                e.Handled = true;
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
         }
     }
 }

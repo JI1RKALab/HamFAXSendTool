@@ -38,6 +38,8 @@
             ComTestButton = new Button();
             ComVerListBox = new ListBox();
             ComVerLabel = new Label();
+            ComSpeedLabel = new Label();
+            BPSTextBox = new TextBox();
             SuspendLayout();
             // 
             // ComPortLabel
@@ -54,6 +56,7 @@
             // 
             ComPortListBox.FormattingEnabled = true;
             ComPortListBox.ItemHeight = 20;
+            ComPortListBox.Items.AddRange(new object[] { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "COM10", "COM11", "COM12", "COM13", "COM14", "COM15", "COM16", "COM17", "COM18", "COM19", "COM20", "COM21", "COM22", "COM23", "COM24", "COM25", "COM26", "COM27", "COM28", "COM29", "COM30" });
             ComPortListBox.Location = new Point(12, 52);
             ComPortListBox.Name = "ComPortListBox";
             ComPortListBox.Size = new Size(193, 284);
@@ -66,7 +69,7 @@
             SoundCardListBox.Location = new Point(470, 52);
             SoundCardListBox.Name = "SoundCardListBox";
             SoundCardListBox.Size = new Size(306, 284);
-            SoundCardListBox.TabIndex = 5;
+            SoundCardListBox.TabIndex = 7;
             // 
             // SoundCardLabel
             // 
@@ -75,7 +78,7 @@
             SoundCardLabel.Location = new Point(470, 9);
             SoundCardLabel.Name = "SoundCardLabel";
             SoundCardLabel.Size = new Size(150, 25);
-            SoundCardLabel.TabIndex = 4;
+            SoundCardLabel.TabIndex = 6;
             SoundCardLabel.Text = "サウンドカード設定";
             // 
             // SettingButton
@@ -84,7 +87,7 @@
             SettingButton.Location = new Point(366, 423);
             SettingButton.Name = "SettingButton";
             SettingButton.Size = new Size(193, 48);
-            SettingButton.TabIndex = 8;
+            SettingButton.TabIndex = 10;
             SettingButton.Text = "設定";
             SettingButton.UseVisualStyleBackColor = true;
             SettingButton.Click += SettingButton_Click;
@@ -95,7 +98,7 @@
             CloseButton.Location = new Point(583, 423);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(193, 48);
-            CloseButton.TabIndex = 9;
+            CloseButton.TabIndex = 11;
             CloseButton.Text = "閉じる";
             CloseButton.UseVisualStyleBackColor = true;
             CloseButton.Click += CloseButton_Click;
@@ -107,7 +110,7 @@
             ComTestLabel.Location = new Point(12, 368);
             ComTestLabel.Name = "ComTestLabel";
             ComTestLabel.Size = new Size(141, 25);
-            ComTestLabel.TabIndex = 6;
+            ComTestLabel.TabIndex = 8;
             ComTestLabel.Text = "COMポートテスト";
             // 
             // ComTestButton
@@ -116,7 +119,7 @@
             ComTestButton.Location = new Point(159, 356);
             ComTestButton.Name = "ComTestButton";
             ComTestButton.Size = new Size(193, 48);
-            ComTestButton.TabIndex = 7;
+            ComTestButton.TabIndex = 9;
             ComTestButton.Text = "テスト";
             ComTestButton.UseVisualStyleBackColor = true;
             ComTestButton.Click += ComTestButton_Click;
@@ -128,7 +131,7 @@
             ComVerListBox.Items.AddRange(new object[] { "RTS", "DTS" });
             ComVerListBox.Location = new Point(243, 52);
             ComVerListBox.Name = "ComVerListBox";
-            ComVerListBox.Size = new Size(193, 284);
+            ComVerListBox.Size = new Size(193, 104);
             ComVerListBox.TabIndex = 3;
             // 
             // ComVerLabel
@@ -141,11 +144,34 @@
             ComVerLabel.TabIndex = 2;
             ComVerLabel.Text = "通信方法設定";
             // 
+            // ComSpeedLabel
+            // 
+            ComSpeedLabel.AutoSize = true;
+            ComSpeedLabel.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            ComSpeedLabel.Location = new Point(243, 181);
+            ComSpeedLabel.Name = "ComSpeedLabel";
+            ComSpeedLabel.Size = new Size(130, 25);
+            ComSpeedLabel.TabIndex = 4;
+            ComSpeedLabel.Text = "通信速度(bps)";
+            // 
+            // BPSTextBox
+            // 
+            BPSTextBox.Font = new Font("Yu Gothic UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
+            BPSTextBox.ImeMode = ImeMode.Disable;
+            BPSTextBox.Location = new Point(244, 221);
+            BPSTextBox.Name = "BPSTextBox";
+            BPSTextBox.ShortcutsEnabled = false;
+            BPSTextBox.Size = new Size(192, 32);
+            BPSTextBox.TabIndex = 5;
+            BPSTextBox.KeyPress += BPSTextBox_KeyPress;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(797, 491);
+            Controls.Add(BPSTextBox);
+            Controls.Add(ComSpeedLabel);
             Controls.Add(ComVerListBox);
             Controls.Add(ComVerLabel);
             Controls.Add(ComTestButton);
@@ -176,5 +202,7 @@
         private Button ComTestButton;
         private ListBox ComVerListBox;
         private Label ComVerLabel;
+        private Label ComSpeedLabel;
+        private TextBox BPSTextBox;
     }
 }
