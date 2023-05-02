@@ -119,6 +119,7 @@
             IOCComboBox.Name = "IOCComboBox";
             IOCComboBox.Size = new Size(193, 28);
             IOCComboBox.TabIndex = 6;
+            IOCComboBox.SelectedIndexChanged += IOCComboBox_SelectedIndexChanged;
             // 
             // IOCTitleLable
             // 
@@ -140,6 +141,7 @@
             WAVEBbutton.TabIndex = 8;
             WAVEBbutton.Text = "FAX信号保存";
             WAVEBbutton.UseVisualStyleBackColor = true;
+            WAVEBbutton.Click += WAVEBbutton_Click;
             // 
             // TopMenuStrip
             // 
@@ -161,7 +163,7 @@
             // ComPoatSettingStripMenu
             // 
             ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
-            ComPoatSettingStripMenu.Size = new Size(224, 26);
+            ComPoatSettingStripMenu.Size = new Size(140, 26);
             ComPoatSettingStripMenu.Text = "設定(&S)";
             ComPoatSettingStripMenu.Click += SettingStripMenu_Click;
             // 
