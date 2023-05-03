@@ -79,6 +79,16 @@ namespace net.sictransit.wefax
             writer.WriteSamples(stop, 0, stop.Length);
         }
 
+        public void FAXStopSignalGenerator(string FilePath)
+        {
+            using (WaveFileWriter writer = new(FilePath, new WaveFormat(sampleRate, 1)))
+            {
+                ToneGenerator StopToneGenerator = new (0, whiteBar, sampleRate, carrier, deviation);
 
+                float[] StopData = StopToneGenerator.GenerateStop();
+
+                writer.WriteSamples(StopData, 0, StopData.Length);
+            }
+        }
     }
 }

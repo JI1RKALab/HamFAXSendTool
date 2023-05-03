@@ -41,6 +41,7 @@
             設定メニューMToolStripMenuItem = new ToolStripMenuItem();
             ComPoatSettingStripMenu = new ToolStripMenuItem();
             ヘルプHToolStripMenuItem = new ToolStripMenuItem();
+            DoingLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)SendPictureBox).BeginInit();
             TopMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -173,11 +174,21 @@
             ヘルプHToolStripMenuItem.Size = new Size(79, 24);
             ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)";
             // 
+            // DoingLabel
+            // 
+            DoingLabel.AutoSize = true;
+            DoingLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            DoingLabel.Location = new Point(1006, 402);
+            DoingLabel.Name = "DoingLabel";
+            DoingLabel.Size = new Size(0, 28);
+            DoingLabel.TabIndex = 10;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1211, 605);
+            Controls.Add(DoingLabel);
             Controls.Add(WAVEBbutton);
             Controls.Add(IOCTitleLable);
             Controls.Add(IOCComboBox);
@@ -192,6 +203,7 @@
             MaximizeBox = false;
             Name = "Form1";
             Text = "Form1";
+            FormClosed += Form1_FormClosed;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)SendPictureBox).EndInit();
             TopMenuStrip.ResumeLayout(false);
@@ -215,5 +227,6 @@
         private ToolStripMenuItem 設定メニューMToolStripMenuItem;
         private ToolStripMenuItem ComPoatSettingStripMenu;
         private ToolStripMenuItem ヘルプHToolStripMenuItem;
+        private Label DoingLabel;
     }
 }

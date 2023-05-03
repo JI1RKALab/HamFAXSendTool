@@ -8,10 +8,10 @@ namespace HamFAXSendTool
 {
     internal class SettingClass
     {
-        public static string ComPort = "";
-        public static string ComSet = "";
+        public static string ComPort = string.Empty;
+        public static string ComSet = string.Empty;
         public static int ComSpeed = 0;
-        public static string SoundCard = "";
+        public static string SoundCard = string.Empty;
 
         /// <summary>
         /// 読み取り
