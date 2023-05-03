@@ -20,8 +20,8 @@ namespace HamFAXSendTool
         /// </summary>
         string FAXStopSignalPath = string.Empty;
 
-        WaveOutEvent player = null;
-        WaveStream mainOutputStream = null;
+        WaveOutEvent FAXPlayer = null;
+        WaveStream MainOutputStream = null;
 
         /// <summary>
         /// イニシャライズ
@@ -108,8 +108,14 @@ namespace HamFAXSendTool
             }
         }
 
+        /// <summary>
+        /// 送信
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SendButton_Click(object sender, EventArgs e)
         {
+            // ボタン
             PictSelectButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
@@ -120,43 +126,51 @@ namespace HamFAXSendTool
 
             //SerialPortControl.SerialPortControlClose();
 
-            bool ddd = IOCComboBox.SelectedItem.ToString().Contains("288");
+            // 協動係数取得
+            bool IOC288Flag = IOCComboBox.SelectedItem.ToString().Contains("288");
 
-
-            Task task = Task.Run(() =>
+            // task
+            Task.Run(() =>
             {
-
                 // Status
                 DoingLabel.Invoke(new Action(() => DoingLabel.Text = "FAX信号生成中..."));
 
+                // 選択
+                string FAXSignalPath = FAXSignalGenerator(IOC288Flag);
 
+                // 停止ボタン
                 StopButton.Invoke(new Action(() => StopButton.Enabled = true));
 
-                // 選択
-                string FAXSignalPath = FAXSignalGenerator(ddd);
+                // 再生部分の生成
+                MainOutputStream = new WaveFileReader(FAXSignalPath);
+                WaveChannel32 VolumeStream = new(MainOutputStream);
 
+                // インスタンス生成
+                FAXPlayer = new();
 
-                mainOutputStream = new WaveFileReader(FAXSignalPath);
-                WaveChannel32 volumeStream = new(mainOutputStream);
+                // 初期化
+                FAXPlayer.Init(VolumeStream);
 
-                player = new();
+                // 再生
+                FAXPlayer.Play();
 
-                player.Init(volumeStream);
+                // タイムスパン
+                TimeSpan TimeSpanValue = new();
 
-                player.Play();
+                // リメイン
+                double RemainValue = 0;
 
-                TimeSpan gggs= new();
-                double dddd = 0;
-                while (player.PlaybackState == PlaybackState.Playing)
+                // 再生が終わる迄待機
+                while (FAXPlayer.PlaybackState == PlaybackState.Playing)
                 {
-                     gggs = (mainOutputStream.TotalTime - mainOutputStream.TotalTime);
-                    dddd = Math.Round(mainOutputStream.CurrentTime / mainOutputStream.TotalTime, 1);
-                    DoingLabel.Invoke(new Action(() => DoingLabel.Text = dddd + "%送信中..."+Environment.NewLine+"残り:"+ gggs.Minutes + "分"+ gggs .Seconds+ "秒"));
+                    // 設定
+                    TimeSpanValue = MainOutputStream.TotalTime - MainOutputStream.CurrentTime;
+                    RemainValue = Math.Round(MainOutputStream.CurrentTime / MainOutputStream.TotalTime, 1);
+                    DoingLabel.Invoke(new Action(() => DoingLabel.Text = RemainValue + "%送信中..." + Environment.NewLine + "残り:" + TimeSpanValue.Minutes + "分" + TimeSpanValue.Seconds + "秒"));
                 }
 
-
                 // 送信完了時は掃除
-                mainOutputStream.Dispose();
+                MainOutputStream.Dispose();
                 SendPictureBox.Image = null;
                 ImagePath = string.Empty;
 
@@ -173,10 +187,9 @@ namespace HamFAXSendTool
                 }
 
                 // 無効化
-                WAVEBbutton.Enabled = false;
-                SendButton.Enabled = false;
+                WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = false));
+                SendButton.Invoke(new Action(() => SendButton.Enabled = false));
                 StopButton.Invoke(new Action(() => StopButton.Enabled = false));
-                StopButton.Enabled = false;
             });
         }
 
@@ -188,9 +201,11 @@ namespace HamFAXSendTool
         private void StopButton_Click(object sender, EventArgs e)
         {
             // 強制停止
-            player .Stop();
+            FAXPlayer .Stop();
+            MainOutputStream.Dispose();
 
             // 停止信号を流す
+            DoingLabel.Text = "停止信号強制送出中...";
 
             // 送信完了時は掃除
             SendPictureBox.Image = null;
