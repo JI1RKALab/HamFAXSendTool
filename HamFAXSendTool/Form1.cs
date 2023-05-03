@@ -20,7 +20,14 @@ namespace HamFAXSendTool
         /// </summary>
         string FAXStopSignalPath = string.Empty;
 
+        /// <summary>
+        /// プレイヤー
+        /// </summary>
         WaveOutEvent FAXPlayer = null;
+
+        /// <summary>
+        /// メインストリーム
+        /// </summary>
         WaveStream MainOutputStream = null;
 
         /// <summary>
