@@ -144,11 +144,14 @@ namespace HamFAXSendTool
                 player.Init(volumeStream);
 
                 player.Play();
+
+                TimeSpan gggs= new();
                 double dddd = 0;
                 while (player.PlaybackState == PlaybackState.Playing)
                 {
+                     gggs = (mainOutputStream.TotalTime - mainOutputStream.TotalTime);
                     dddd = Math.Round(mainOutputStream.CurrentTime / mainOutputStream.TotalTime, 1);
-                    DoingLabel.Invoke(new Action(() => DoingLabel.Text = dddd + "%‘—M’†..."));
+                    DoingLabel.Invoke(new Action(() => DoingLabel.Text = dddd + "%‘—M’†..."+Environment.NewLine+"c‚è:"+ gggs.Minutes + "•ª"+ gggs .Seconds+ "•b"));
                 }
 
 
