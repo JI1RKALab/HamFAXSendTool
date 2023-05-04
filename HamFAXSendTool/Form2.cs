@@ -284,7 +284,7 @@ namespace HamFAXSendTool
         private void CloseButton_Click(object sender, EventArgs e)
         {
             // OK
-            this.Close();
+            Close();
         }
 
         /// <summary>

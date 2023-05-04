@@ -1,6 +1,7 @@
 using NAudio.Wave;
 using net.sictransit.wefax;
 using System.Reflection;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Image = System.Drawing.Image;
 
 namespace HamFAXSendTool
@@ -570,6 +571,7 @@ namespace HamFAXSendTool
             PictSelectButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
+            EndButton.Enabled = false;
             Task.Run(() =>
             {
                 // OK
@@ -643,6 +645,7 @@ namespace HamFAXSendTool
                 PictSelectButton.Enabled = false;
                 WAVEBbutton.Enabled = false;
                 SendButton.Enabled = false;
+                EndButton.Enabled = true;
                 IOCComboBox.SelectedIndex = -1;
             }
             else
@@ -651,6 +654,7 @@ namespace HamFAXSendTool
                 PictSelectButton.Enabled = true;
                 WAVEBbutton.Enabled = true;
                 SendButton.Enabled = true;
+                EndButton.Enabled = true;
             }
 
             // OK
