@@ -31,6 +31,11 @@ namespace HamFAXSendTool
         WaveStream MainOutputStream = null;
 
         /// <summary>
+        /// 強制停止フラグ
+        /// </summary>
+        bool ForceStop = new();
+
+        /// <summary>
         /// イニシャライズ
         /// </summary>
         public Form1()
@@ -126,6 +131,7 @@ namespace HamFAXSendTool
             PictSelectButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
+            EndButton.Enabled = false;
 
             //SerialPortControlClass SerialPortControl = new(SettingClass.ComPort, SettingClass.ComSet, SettingClass.ComSpeed);
 
@@ -145,9 +151,6 @@ namespace HamFAXSendTool
                 // 選択
                 string FAXSignalPath = FAXSignalGenerator(IOC288Flag);
 
-                // 停止ボタン
-                StopButton.Invoke(new Action(() => StopButton.Enabled = true));
-
                 // 再生部分の生成
                 MainOutputStream = new WaveFileReader(FAXSignalPath);
                 WaveChannel32 VolumeStream = new(MainOutputStream);
@@ -160,6 +163,9 @@ namespace HamFAXSendTool
 
                 // 再生
                 FAXPlayer.Play();
+
+                // 停止ボタン
+                StopButton.Invoke(new Action(() => StopButton.Enabled = true));
 
                 // タイムスパン
                 TimeSpan TimeSpanValue = new();
@@ -193,10 +199,63 @@ namespace HamFAXSendTool
                     File.Delete(FAXSignalPath);
                 }
 
+                // 停止判定
+                if (ForceStop)
+                {
+                    // 再生が終わる迄待機
+                    while (true)
+                    {
+                        // STOP
+                        Thread.Sleep(1000);
+
+                        // 判定
+                        if (FAXPlayer.PlaybackState == PlaybackState.Playing)
+                        {
+                            // 抜け
+                            break;
+                        }
+                        else
+                        {
+                            // 継続
+                            continue;
+                        }
+                    }
+
+                    // 再生が終わる迄待機
+                    while (FAXPlayer.PlaybackState == PlaybackState.Playing)
+                    {
+                        // 判定
+                        if (MainOutputStream.CurrentTime == MainOutputStream.TotalTime)
+                        {
+                            // 抜け
+                            break;
+                        }
+                        else
+                        {
+                            // 継続
+                            continue;
+                        }
+                    }
+
+                    // 強制停止
+                    ForceStop = false;
+                    FAXPlayer.Stop();
+                    FAXPlayer.Dispose();
+                    MainOutputStream.Dispose();
+                } else 
+                {
+                    // OK
+                    Console.WriteLine("OK");
+                }
+
                 // 無効化
+                PictSelectButton.Invoke(new Action(() => PictSelectButton.Enabled = true));
+                EndButton.Invoke(new Action(() => EndButton.Enabled = false));
                 WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = false));
                 SendButton.Invoke(new Action(() => SendButton.Enabled = false));
                 StopButton.Invoke(new Action(() => StopButton.Enabled = false));
+                DoingLabel.Invoke(new Action(() => DoingLabel.Text = string.Empty));
+                IOCComboBox.Invoke(new Action(() => IOCComboBox.SelectedIndex = -1));
             });
         }
 
@@ -207,43 +266,58 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void StopButton_Click(object sender, EventArgs e)
         {
-            // 強制停止
-            FAXPlayer .Stop();
-            MainOutputStream.Dispose();
+            // フラグ
+            ForceStop = true;
 
-            // 停止信号を流す
-            DoingLabel.Text = "停止信号強制送出中...";
-
-            // 送信完了時は掃除
-            SendPictureBox.Image = null;
-            ImagePath = string.Empty;
-
-            // どちらにせよ、ファイルは消す
-            if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+            // OK
+            Task.Run(() =>
             {
-                // OK
-                Console.WriteLine("OK");
-            }
-            else
-            {
-                // 消す
-                if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+                // 強制停止
+                FAXPlayer.Stop();
+                FAXPlayer.Dispose();
+                MainOutputStream.Dispose();
+
+                // 停止信号を流す
+                DoingLabel.Invoke(new Action(() => DoingLabel.Text = "停止信号強制送出中..."));
+
+                // 再生部分の生成
+                MainOutputStream = new WaveFileReader(FAXStopSignalPath);
+                WaveChannel32 VolumeStream = new(MainOutputStream);
+
+                // インスタンス生成
+                FAXPlayer = new();
+
+                // 初期化
+                FAXPlayer.Init(VolumeStream);
+
+                // 再生
+                FAXPlayer.Play();
+
+                // 送信完了時は掃除
+                SendPictureBox.Invoke(new Action(() => SendPictureBox.Image = null));
+                ImagePath = string.Empty;
+
+                // どちらにせよ、ファイルは消す
+                if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
                 {
                     // OK
-                    File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav"));
+                    Console.WriteLine("OK");
                 }
-                else 
+                else
                 {
-                    // OK
-                    Console.Write("OK");
+                    // 消す
+                    if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+                    {
+                        // OK
+                        File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav"));
+                    }
+                    else
+                    {
+                        // OK
+                        Console.Write("OK");
+                    }
                 }
-            }
-
-            // ボタン無効化
-            PictSelectButton.Enabled = true;
-            WAVEBbutton.Enabled = true;
-            SendButton.Enabled = true;
-            StopButton.Enabled = false;
+            });
         }
 
         /// <summary>
@@ -279,6 +353,11 @@ namespace HamFAXSendTool
             PictSelectButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
+            Task.Run(() => 
+            {
+                // OK
+                DoingLabel.Invoke(new Action(()=> DoingLabel.Text = "FAX信号生成中..."));
+            });
 
             // 選択
             string FAXSignalPath = FAXSignalGenerator(IOCComboBox.SelectedItem.ToString().Contains("288"));
@@ -316,11 +395,25 @@ namespace HamFAXSendTool
             // デフォルトでTrueなので指定する必要はない
             SignalSaveFileDialog.CheckPathExists = true;
 
+            // ダイアログ表示
+            Task.Run(() =>
+            {
+                // OK
+                DoingLabel.Invoke(new Action(() => DoingLabel.Text = "保存先選択中..."));
+            });
+
             //ダイアログを表示する
             if (SignalSaveFileDialog.ShowDialog() == DialogResult.OK)
             {
                 //OKボタンがクリックされたとき、選択されたファイル名を表示する
                 Console.WriteLine(SignalSaveFileDialog.FileName);
+
+                // OK
+                Task.Run(() =>
+                {
+                    // OK
+                    DoingLabel.Invoke(new Action(() => DoingLabel.Text = "保存処理中..."));
+                });
 
                 // コピー
                 File.Copy(FAXSignalPath, SignalSaveFileDialog.FileName, true);
@@ -342,6 +435,13 @@ namespace HamFAXSendTool
                 WAVEBbutton.Enabled = true;
                 SendButton.Enabled = true;
             }
+
+            // OK
+            Task.Run(() =>
+            {
+                // OK
+                DoingLabel.Invoke(new Action(() => DoingLabel.Text = string.Empty));
+            });
 
             // どちらにせよ、ファイルは消す
             if (string.IsNullOrWhiteSpace(FAXSignalPath))
