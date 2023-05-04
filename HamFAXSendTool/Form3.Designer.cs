@@ -31,6 +31,7 @@
             CallSignInputTextBox = new TextBox();
             SettingButton = new Button();
             CallSineLabel = new Label();
+            CancelButton = new Button();
             SuspendLayout();
             // 
             // CallSignInputTextBox
@@ -38,14 +39,14 @@
             CallSignInputTextBox.Font = new Font("Yu Gothic UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             CallSignInputTextBox.Location = new Point(12, 75);
             CallSignInputTextBox.Name = "CallSignInputTextBox";
-            CallSignInputTextBox.Size = new Size(251, 32);
+            CallSignInputTextBox.Size = new Size(416, 32);
             CallSignInputTextBox.TabIndex = 1;
             CallSignInputTextBox.KeyPress += CallSignInputTextBox_KeyPress;
             // 
             // SettingButton
             // 
             SettingButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            SettingButton.Location = new Point(36, 139);
+            SettingButton.Location = new Point(12, 139);
             SettingButton.Name = "SettingButton";
             SettingButton.Size = new Size(193, 48);
             SettingButton.TabIndex = 2;
@@ -57,17 +58,29 @@
             // 
             CallSineLabel.AutoSize = true;
             CallSineLabel.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            CallSineLabel.Location = new Point(58, 24);
+            CallSineLabel.Location = new Point(148, 23);
             CallSineLabel.Name = "CallSineLabel";
             CallSineLabel.Size = new Size(137, 25);
             CallSineLabel.TabIndex = 0;
             CallSineLabel.Text = "コールサイン入力";
             // 
+            // CancelButton
+            // 
+            CancelButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            CancelButton.Location = new Point(235, 139);
+            CancelButton.Name = "CancelButton";
+            CancelButton.Size = new Size(193, 48);
+            CancelButton.TabIndex = 3;
+            CancelButton.Text = "キャンセル";
+            CancelButton.UseVisualStyleBackColor = true;
+            CancelButton.Click += CancelButton_Click;
+            // 
             // Form3
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(272, 224);
+            ClientSize = new Size(450, 224);
+            Controls.Add(CancelButton);
             Controls.Add(CallSineLabel);
             Controls.Add(SettingButton);
             Controls.Add(CallSignInputTextBox);
@@ -84,5 +97,6 @@
         private TextBox CallSignInputTextBox;
         private Button SettingButton;
         private Label CallSineLabel;
+        private Button CancelButton;
     }
 }

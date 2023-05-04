@@ -72,18 +72,18 @@ namespace HamFAXSendTool
                 if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
                 {
                     // それでも尚未設定
-                    Name = SoftName + "(コールサイン:未設定!)";
+                    Text = SoftName + "(コールサイン:未設定!)";
                 }
                 else
                 {
                     // 設定済み
-                    Name = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
+                    Text = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
                 }
             }
             else
             {
                 // 設定済み
-                Name = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
+                Text = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
             }
         }
 
