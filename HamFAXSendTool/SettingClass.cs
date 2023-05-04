@@ -1,17 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HamFAXSendTool
+﻿namespace HamFAXSendTool
 {
     internal class SettingClass
     {
+        /// <summary>
+        /// COMボード
+        /// </summary>
         public static string ComPort = string.Empty;
+
+        /// <summary>
+        /// DTR/RTS
+        /// </summary>
         public static string ComSet = string.Empty;
+
+        /// <summary>
+        /// シリアルスピード
+        /// </summary>
         public static int ComSpeed = 0;
+
+        /// <summary>
+        /// サウンドボード設定
+        /// </summary>
         public static string SoundCard = string.Empty;
+
+        /// <summary>
+        /// コールサイン設定
+        /// </summary>
         public static string UserCallSign = string.Empty;
 
         /// <summary>
