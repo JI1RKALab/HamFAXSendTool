@@ -42,6 +42,7 @@
             ComPoatSettingStripMenu = new ToolStripMenuItem();
             ヘルプHToolStripMenuItem = new ToolStripMenuItem();
             DoingLabel = new Label();
+            DispOnLineHelpToolStripMenuItem = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)SendPictureBox).BeginInit();
             TopMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -72,7 +73,7 @@
             SendButton.Location = new Point(1006, 283);
             SendButton.Name = "SendButton";
             SendButton.Size = new Size(193, 48);
-            SendButton.TabIndex = 2;
+            SendButton.TabIndex = 5;
             SendButton.Text = "送信";
             SendButton.UseVisualStyleBackColor = true;
             SendButton.Click += SendButton_Click;
@@ -85,7 +86,7 @@
             StopButton.Location = new Point(1006, 458);
             StopButton.Name = "StopButton";
             StopButton.Size = new Size(193, 48);
-            StopButton.TabIndex = 3;
+            StopButton.TabIndex = 8;
             StopButton.Text = "停止";
             StopButton.UseVisualStyleBackColor = true;
             StopButton.Click += StopButton_Click;
@@ -96,7 +97,7 @@
             EndButton.Location = new Point(1006, 538);
             EndButton.Name = "EndButton";
             EndButton.Size = new Size(193, 48);
-            EndButton.TabIndex = 4;
+            EndButton.TabIndex = 9;
             EndButton.Text = "終了";
             EndButton.UseVisualStyleBackColor = true;
             EndButton.Click += EndButton_Click;
@@ -108,7 +109,7 @@
             StatusTitleLable.Location = new Point(1006, 357);
             StatusTitleLable.Name = "StatusTitleLable";
             StatusTitleLable.Size = new Size(92, 28);
-            StatusTitleLable.TabIndex = 5;
+            StatusTitleLable.TabIndex = 6;
             StatusTitleLable.Text = "スタータス:";
             // 
             // IOCComboBox
@@ -119,7 +120,7 @@
             IOCComboBox.Location = new Point(1006, 147);
             IOCComboBox.Name = "IOCComboBox";
             IOCComboBox.Size = new Size(193, 28);
-            IOCComboBox.TabIndex = 6;
+            IOCComboBox.TabIndex = 3;
             IOCComboBox.SelectedIndexChanged += IOCComboBox_SelectedIndexChanged;
             // 
             // IOCTitleLable
@@ -129,7 +130,7 @@
             IOCTitleLable.Location = new Point(1006, 104);
             IOCTitleLable.Name = "IOCTitleLable";
             IOCTitleLable.Size = new Size(97, 28);
-            IOCTitleLable.TabIndex = 7;
+            IOCTitleLable.TabIndex = 2;
             IOCTitleLable.Text = "協動係数:";
             // 
             // WAVEBbutton
@@ -139,7 +140,7 @@
             WAVEBbutton.Location = new Point(1006, 207);
             WAVEBbutton.Name = "WAVEBbutton";
             WAVEBbutton.Size = new Size(193, 48);
-            WAVEBbutton.TabIndex = 8;
+            WAVEBbutton.TabIndex = 4;
             WAVEBbutton.Text = "FAX信号保存";
             WAVEBbutton.UseVisualStyleBackColor = true;
             WAVEBbutton.Click += WAVEBbutton_Click;
@@ -151,7 +152,7 @@
             TopMenuStrip.Location = new Point(0, 0);
             TopMenuStrip.Name = "TopMenuStrip";
             TopMenuStrip.Size = new Size(1211, 28);
-            TopMenuStrip.TabIndex = 9;
+            TopMenuStrip.TabIndex = 0;
             TopMenuStrip.Text = "menuStrip1";
             // 
             // 設定メニューMToolStripMenuItem
@@ -164,12 +165,13 @@
             // ComPoatSettingStripMenu
             // 
             ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
-            ComPoatSettingStripMenu.Size = new Size(140, 26);
+            ComPoatSettingStripMenu.Size = new Size(224, 26);
             ComPoatSettingStripMenu.Text = "設定(&S)";
             ComPoatSettingStripMenu.Click += SettingStripMenu_Click;
             // 
             // ヘルプHToolStripMenuItem
             // 
+            ヘルプHToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DispOnLineHelpToolStripMenuItem });
             ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
             ヘルプHToolStripMenuItem.Size = new Size(79, 24);
             ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)";
@@ -181,7 +183,14 @@
             DoingLabel.Location = new Point(1006, 402);
             DoingLabel.Name = "DoingLabel";
             DoingLabel.Size = new Size(0, 28);
-            DoingLabel.TabIndex = 10;
+            DoingLabel.TabIndex = 7;
+            // 
+            // DispOnLineHelpToolStripMenuItem
+            // 
+            DispOnLineHelpToolStripMenuItem.Name = "DispOnLineHelpToolStripMenuItem";
+            DispOnLineHelpToolStripMenuItem.Size = new Size(224, 26);
+            DispOnLineHelpToolStripMenuItem.Text = "オンラインヘルプを表示";
+            DispOnLineHelpToolStripMenuItem.Click += DispOnLineHelpToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -228,5 +237,6 @@
         private ToolStripMenuItem ComPoatSettingStripMenu;
         private ToolStripMenuItem ヘルプHToolStripMenuItem;
         private Label DoingLabel;
+        private ToolStripMenuItem DispOnLineHelpToolStripMenuItem;
     }
 }

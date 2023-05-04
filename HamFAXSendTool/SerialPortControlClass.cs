@@ -33,7 +33,6 @@ namespace HamFAXSendTool
             };
         }
 
-
         /// <summary>
         /// Open
         /// </summary>

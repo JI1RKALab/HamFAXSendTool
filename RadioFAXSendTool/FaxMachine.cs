@@ -6,6 +6,7 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace net.sictransit.wefax
 {
@@ -17,12 +18,14 @@ namespace net.sictransit.wefax
         private readonly int deviation;
         private readonly int resolution;
         private readonly float[] whiteBar;
+        private readonly bool is288Flag;
 
         public FaxMachine(int sampleRate = 44100, int carrier = 1900, int deviation = 400, int ioc = 576)
         {
             this.sampleRate = sampleRate;
             this.carrier = carrier;
             this.deviation = deviation;
+            this.is288Flag = (ioc == 288) ? true : false;
 
             resolution = (int)(Math.PI * ioc);
             whiteBar = Enumerable.Repeat(1f, resolution / 20).ToArray();
@@ -50,7 +53,7 @@ namespace net.sictransit.wefax
 
             var toneGenerator = new ToneGenerator(imageWidth, whiteBar, sampleRate, carrier, deviation);
 
-            var start = toneGenerator.GenerateStart();
+            var start = toneGenerator.GenerateStart(is288Flag);
 
             writer.WriteSamples(start, 0, start.Length);
 

@@ -12,6 +12,7 @@ namespace HamFAXSendTool
         public static string ComSet = string.Empty;
         public static int ComSpeed = 0;
         public static string SoundCard = string.Empty;
+        public static string UserCallSign = string.Empty;
 
         /// <summary>
         /// 読み取り
@@ -26,6 +27,7 @@ namespace HamFAXSendTool
             ComSet = Properties.Settings.Default.COMVerSetting;
             ComSpeed = Properties.Settings.Default.COMSpeedSetting;
             SoundCard = Properties.Settings.Default.SoundCardSetting;
+            UserCallSign = Properties.Settings.Default.UserCallSignSetting;
         }
 
         /// <summary>
@@ -48,6 +50,22 @@ namespace HamFAXSendTool
             Properties.Settings.Default.COMVerSetting = ComSetName;
             Properties.Settings.Default.COMSpeedSetting = ComSpeedValue;
             Properties.Settings.Default.SoundCardSetting = SoundCardName;
+
+            // 保存
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// コールサイン設定
+        /// </summary>
+        /// <param name="InputUserCallCallSign"></param>
+        public void CallSignSettingFileSave(string InputUserCallCallSign)
+        {
+            // 値上書き
+            UserCallSign = InputUserCallCallSign;
+
+            // 値を上書き
+            Properties.Settings.Default.UserCallSignSetting = UserCallSign;
 
             // 保存
             Properties.Settings.Default.Save();

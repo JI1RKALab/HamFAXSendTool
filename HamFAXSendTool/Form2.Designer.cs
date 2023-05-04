@@ -184,7 +184,7 @@
             Controls.Add(ComPortLabel);
             MaximizeBox = false;
             Name = "Form2";
-            Text = "Form2";
+            Text = "COM・サウンドカード設定";
             Load += Form2_Load;
             ResumeLayout(false);
             PerformLayout();

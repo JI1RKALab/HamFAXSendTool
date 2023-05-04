@@ -33,14 +33,14 @@ namespace net.sictransit.wefax
             return Enumerable.Range(0, 20 * 2).Select(_ => GenerateLineForStartAndStop(modulation)).SelectMany(x => x).ToArray();
         }
 
-        public float[] GenerateStart()
+        public float[] GenerateStart(bool is288Flag)
         {
-            return GenerateSquareWave(300, 5);
+            return GenerateSquareWave(is288Flag ? 675 : 300, 7);
         }
 
         public float[] GenerateStop()
         {
-            return GenerateSquareWave(450, 5);
+            return GenerateSquareWave(450, 7);
         }
 
         public float[] GenerateBCH(BinaryCodedHeader bch, bool debug = false)

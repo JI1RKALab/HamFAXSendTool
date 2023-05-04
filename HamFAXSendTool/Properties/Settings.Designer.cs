@@ -70,5 +70,17 @@ namespace HamFAXSendTool.Properties {
                 this["SoundCardSetting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string UserCallSignSetting {
+            get {
+                return ((string)(this["UserCallSignSetting"]));
+            }
+            set {
+                this["UserCallSignSetting"] = value;
+            }
+        }
     }
 }

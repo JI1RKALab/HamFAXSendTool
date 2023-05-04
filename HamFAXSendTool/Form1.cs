@@ -1,9 +1,6 @@
 using NAudio.Wave;
-using NAudio.Wave.SampleProviders;
 using net.sictransit.wefax;
-using System.Numerics;
 using System.Reflection;
-using static System.Net.Mime.MediaTypeNames;
 using Image = System.Drawing.Image;
 
 namespace HamFAXSendTool
@@ -19,6 +16,11 @@ namespace HamFAXSendTool
         /// FAX停止信号パス
         /// </summary>
         string FAXStopSignalPath = string.Empty;
+
+        /// <summary>
+        /// ファイル名
+        /// </summary>
+        const string SoftName = "アマチュア無線FAX送信ツール";
 
         /// <summary>
         /// プレイヤー
@@ -56,6 +58,33 @@ namespace HamFAXSendTool
 
             // 停止信号作成
             FAXStopSignalPath = FAXStopSignalGenerator();
+
+            // コールサイン未設定?
+            if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
+            {
+                // メッセージ
+                MessageBox.Show("現在コールサイン未登録です" + Environment.NewLine + "コールサインの登録をお願いします", "確認", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // フォーム3
+                new Form3().ShowDialog();
+
+                // 設定
+                if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
+                {
+                    // それでも尚未設定
+                    Name = SoftName + "(コールサイン:未設定!)";
+                }
+                else
+                {
+                    // 設定済み
+                    Name = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
+                }
+            }
+            else
+            {
+                // 設定済み
+                Name = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
+            }
         }
 
         /// <summary>
@@ -127,17 +156,116 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void SendButton_Click(object sender, EventArgs e)
         {
+            // OK
+            List<string> ErrorList = new();
+
+            // Start
+            if (string.IsNullOrWhiteSpace(SettingClass.ComPort))
+            {
+                // Comポート
+                ErrorList.Add("・COMポート");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+            if (string.IsNullOrWhiteSpace(SettingClass.ComSet))
+            {
+                // 通信方式
+                ErrorList.Add("・COM通信方式");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+            if (0 >= SettingClass.ComSpeed)
+            {
+                // 通信方式
+                ErrorList.Add("・通信速度入力");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+            if (string.IsNullOrWhiteSpace(SettingClass.SoundCard))
+            {
+                // サウンドカード
+                ErrorList.Add("・出力サウンドカード");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+            if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
+            {
+                // サウンドカード
+                ErrorList.Add("・コールサイン");
+            }
+            else
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+
+            // はい
+            if (ErrorList.Count > 0)
+            {
+                // エラー
+                MessageBox.Show("下記設定エラーが出ています" + Environment.NewLine
+                                        + "ご確認下さい" + Environment.NewLine
+                                        + string.Join(Environment.NewLine, ErrorList),
+                                        "設定エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // コールサイン設定する?
+                if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
+                {
+                    // 判定
+                    if (MessageBox.Show("コールサイン設定後送信可能になります"
+                                        + Environment.NewLine + "設定しますか?",
+                                        "コールサイン設定確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                    {
+                        // 表示
+                        new Form3().ShowDialog();
+
+                        // ヘッダ書き換え
+                        Name = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
+
+                        // 送信
+                        FAXSend();
+                    }
+                    else
+                    {
+                        // 送信出来ない
+                        return;
+                    }
+                }
+                else
+                {
+                    // 送信出来ない
+                    return;
+                }
+            }
+            else
+            {
+                // 送信
+                FAXSend();
+            }
+        }
+
+        /// <summary>
+        /// FAX送信
+        /// </summary>
+        private void FAXSend()
+        {
             // ボタン
             PictSelectButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
             EndButton.Enabled = false;
-
-            //SerialPortControlClass SerialPortControl = new(SettingClass.ComPort, SettingClass.ComSet, SettingClass.ComSpeed);
-
-            //SerialPortControl.SerialPortControlOpen();
-
-            //SerialPortControl.SerialPortControlClose();
 
             // 協動係数取得
             bool IOC288Flag = IOCComboBox.SelectedItem.ToString().Contains("288");
@@ -148,109 +276,164 @@ namespace HamFAXSendTool
                 // Status
                 DoingLabel.Invoke(new Action(() => DoingLabel.Text = "FAX信号生成中..."));
 
-                // 選択
-                string FAXSignalPath = FAXSignalGenerator(IOC288Flag);
+                //// シリアルポート
+                // SerialPortControlClass SerialPortControl = new(SettingClass.ComPort, SettingClass.ComSet, SettingClass.ComSpeed);
 
-                // 再生部分の生成
-                MainOutputStream = new WaveFileReader(FAXSignalPath);
-                WaveChannel32 VolumeStream = new(MainOutputStream);
-
-                // インスタンス生成
-                FAXPlayer = new();
-
-                // 初期化
-                FAXPlayer.Init(VolumeStream);
-
-                // 再生
-                FAXPlayer.Play();
-
-                // 停止ボタン
-                StopButton.Invoke(new Action(() => StopButton.Enabled = true));
-
-                // タイムスパン
-                TimeSpan TimeSpanValue = new();
-
-                // リメイン
-                double RemainValue = 0;
-
-                // 再生が終わる迄待機
-                while (FAXPlayer.PlaybackState == PlaybackState.Playing)
+                // トライキャッチ
+                try
                 {
-                    // 設定
-                    TimeSpanValue = MainOutputStream.TotalTime - MainOutputStream.CurrentTime;
-                    RemainValue = Math.Round(MainOutputStream.CurrentTime / MainOutputStream.TotalTime, 1);
-                    DoingLabel.Invoke(new Action(() => DoingLabel.Text = RemainValue + "%送信中..." + Environment.NewLine + "残り:" + TimeSpanValue.Minutes + "分" + TimeSpanValue.Seconds + "秒"));
-                }
+                    // 選択
+                    string FAXSignalPath = FAXSignalGenerator(IOC288Flag);
 
-                // 送信完了時は掃除
-                MainOutputStream.Dispose();
-                SendPictureBox.Image = null;
-                ImagePath = string.Empty;
+                    // 再生部分の生成
+                    MainOutputStream = new WaveFileReader(FAXSignalPath);
+                    WaveChannel32 VolumeStream = new(MainOutputStream);
 
-                // どちらにせよ、ファイルは消す
-                if (string.IsNullOrWhiteSpace(FAXSignalPath))
-                {
-                    // OK
-                    Console.WriteLine("OK");
-                }
-                else
-                {
-                    // 消す
-                    File.Delete(FAXSignalPath);
-                }
+                    // インスタンス生成
+                    FAXPlayer = new();
 
-                // 停止判定
-                if (ForceStop)
-                {
-                    // 再生が終わる迄待機
-                    while (true)
-                    {
-                        // STOP
-                        Thread.Sleep(1000);
+                    // 初期化
+                    FAXPlayer.Init(VolumeStream);
+                    FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
 
-                        // 判定
-                        if (FAXPlayer.PlaybackState == PlaybackState.Playing)
-                        {
-                            // 抜け
-                            break;
-                        }
-                        else
-                        {
-                            // 継続
-                            continue;
-                        }
-                    }
+                    // スタート
+                    ////SerialPortControl.SerialPortControlOpen();
+
+                    // 再生
+                    FAXPlayer.Play();
+
+                    // 停止ボタン
+                    StopButton.Invoke(new Action(() => StopButton.Enabled = true));
+
+                    // タイムスパン
+                    TimeSpan TimeSpanValue = new();
+
+                    // リメイン
+                    double RemainValue = 0;
 
                     // 再生が終わる迄待機
                     while (FAXPlayer.PlaybackState == PlaybackState.Playing)
                     {
-                        // 判定
-                        if (MainOutputStream.CurrentTime == MainOutputStream.TotalTime)
-                        {
-                            // 抜け
-                            break;
-                        }
-                        else
-                        {
-                            // 継続
-                            continue;
-                        }
+                        // 設定
+                        TimeSpanValue = MainOutputStream.TotalTime - MainOutputStream.CurrentTime;
+                        RemainValue = Math.Round(MainOutputStream.CurrentTime / MainOutputStream.TotalTime, 1);
+                        DoingLabel.Invoke(new Action(() => DoingLabel.Text = RemainValue + "%送信中..." + Environment.NewLine + "残り:" + TimeSpanValue.Minutes + "分" + TimeSpanValue.Seconds + "秒"));
                     }
 
-                    // 強制停止
-                    ForceStop = false;
-                    FAXPlayer.Stop();
-                    FAXPlayer.Dispose();
+                    // 送信完了時は掃除
                     MainOutputStream.Dispose();
-                } else 
-                {
-                    // OK
-                    Console.WriteLine("OK");
+                    SendPictureBox.Image = null;
+                    ImagePath = string.Empty;
+
+                    // どちらにせよ、ファイルは消す
+                    if (string.IsNullOrWhiteSpace(FAXSignalPath))
+                    {
+                        // OK
+                        Console.WriteLine("OK");
+                    }
+                    else
+                    {
+                        // 消す
+                        File.Delete(FAXSignalPath);
+                    }
+
+                    // 停止判定
+                    if (ForceStop)
+                    {
+                        // 再生が終わる迄待機
+                        while (true)
+                        {
+                            // STOP
+                            Thread.Sleep(1000);
+
+                            // 判定
+                            if (FAXPlayer.PlaybackState == PlaybackState.Playing)
+                            {
+                                // 抜け
+                                break;
+                            }
+                            else
+                            {
+                                // 継続
+                                continue;
+                            }
+                        }
+
+                        // 再生が終わる迄待機
+                        while (FAXPlayer.PlaybackState == PlaybackState.Playing)
+                        {
+                            // 判定
+                            if (MainOutputStream.CurrentTime == MainOutputStream.TotalTime)
+                            {
+                                // 抜け
+                                break;
+                            }
+                            else
+                            {
+                                // 継続
+                                continue;
+                            }
+                        }
+
+                        // 強制停止
+                        ForceStop = false;
+                        FAXPlayer.Stop();
+                        FAXPlayer.Dispose();
+                        MainOutputStream.Dispose();
+                    }
+                    else
+                    {
+                        // OK
+                        FAXPlayer.Stop();
+                        FAXPlayer.Dispose();
+                        MainOutputStream.Dispose();
+                    }
                 }
+                catch (Exception ex)
+                {
+                    // ERror
+                    MessageBox.Show("ソフトが停止しました" + Environment.NewLine + "理由は下記の通りです" + Environment.NewLine + ex.Message, "エラー", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    // 終了
+                    if (FAXPlayer is null)
+                    {
+                        // OK
+                        Console.WriteLine("OK");
+                    }
+                    else
+                    {
+                        // 停止
+                        FAXPlayer.Stop();
+                        FAXPlayer.Dispose();
+                    }
+
+                    // 終了
+                    if (MainOutputStream is null)
+                    {
+                        // OK
+                        Console.WriteLine("OK");
+                    }
+                    else
+                    {
+                        // 捨て
+                        MainOutputStream.Dispose();
+                    }
+                }
+
+                //// チェック
+                //if (SerialPortControl.SerialPort.IsOpen) 
+                //{
+                //    //// 閉じる
+                //    //SerialPortControl.SerialPortControlClose();
+                //}else
+                //{
+                //    // OK
+                //    Console.WriteLine("OK");
+                //}
 
                 // 無効化
                 PictSelectButton.Invoke(new Action(() => PictSelectButton.Enabled = true));
-                EndButton.Invoke(new Action(() => EndButton.Enabled = false));
+                EndButton.Invoke(new Action(() => EndButton.Enabled = true));
                 WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = false));
                 SendButton.Invoke(new Action(() => SendButton.Enabled = false));
                 StopButton.Invoke(new Action(() => StopButton.Enabled = false));
@@ -276,6 +459,7 @@ namespace HamFAXSendTool
                 FAXPlayer.Stop();
                 FAXPlayer.Dispose();
                 MainOutputStream.Dispose();
+                StopButton.Invoke(new Action(() => StopButton.Enabled = false));
 
                 // 停止信号を流す
                 DoingLabel.Invoke(new Action(() => DoingLabel.Text = "停止信号強制送出中..."));
@@ -289,6 +473,7 @@ namespace HamFAXSendTool
 
                 // 初期化
                 FAXPlayer.Init(VolumeStream);
+                FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
 
                 // 再生
                 FAXPlayer.Play();
@@ -318,6 +503,38 @@ namespace HamFAXSendTool
                     }
                 }
             });
+        }
+
+        /// <summary>
+        /// 再生デバイス取得
+        /// </summary>
+        /// <returns></returns>
+        private int PlaySoundCardIndexNoSelect()
+        {
+            // INDEX番号を入れておく
+            int PlaySoundCardIndexNo = new();
+
+            // サウンドカード取得
+            List<DirectSoundDeviceInfo> Capabilities = DirectSoundOut.Devices.ToList();
+
+            // ループ
+            for (int i = 0; i < Capabilities.Count(); i++)
+            {
+                // Add
+                if (Capabilities[i].Description == SettingClass.SoundCard)
+                {
+                    // OK
+                    PlaySoundCardIndexNo = i;
+                }
+                else
+                {
+                    // Skip
+                    continue;
+                }
+            }
+
+            // 戻し
+            return PlaySoundCardIndexNo;
         }
 
         /// <summary>
@@ -353,10 +570,10 @@ namespace HamFAXSendTool
             PictSelectButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
-            Task.Run(() => 
+            Task.Run(() =>
             {
                 // OK
-                DoingLabel.Invoke(new Action(()=> DoingLabel.Text = "FAX信号生成中..."));
+                DoingLabel.Invoke(new Action(() => DoingLabel.Text = "FAX信号生成中..."));
             });
 
             // 選択
@@ -552,6 +769,16 @@ namespace HamFAXSendTool
                 // 消し
                 FAXStopSignalPath = string.Empty;
             }
+        }
+
+        /// <summary>
+        /// オンラインヘルプ表示
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DispOnLineHelpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // wip
         }
     }
 }
