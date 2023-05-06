@@ -277,8 +277,8 @@ namespace HamFAXSendTool
                 // Status
                 DoingLabel.Invoke(new Action(() => DoingLabel.Text = "FAX信号生成中..."));
 
-                //// シリアルポート
-                // SerialPortControlClass SerialPortControl = new(SettingClass.ComPort, SettingClass.ComSet, SettingClass.ComSpeed);
+                // シリアルポート
+                SerialPortControlClass SerialPortControl = new(SettingClass.ComPort, SettingClass.ComSet, SettingClass.ComSpeed);
 
                 // トライキャッチ
                 try
@@ -298,7 +298,7 @@ namespace HamFAXSendTool
                     FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
 
                     // スタート
-                    ////SerialPortControl.SerialPortControlOpen();
+                    SerialPortControl.SerialPortControlOpen();
 
                     // 再生
                     FAXPlayer.Play();
@@ -421,16 +421,17 @@ namespace HamFAXSendTool
                     }
                 }
 
-                //// チェック
-                //if (SerialPortControl.SerialPort.IsOpen) 
-                //{
-                //    //// 閉じる
-                //    //SerialPortControl.SerialPortControlClose();
-                //}else
-                //{
-                //    // OK
-                //    Console.WriteLine("OK");
-                //}
+                // チェック
+                if (SerialPortControl.SerialPort.IsOpen)
+                {
+                    // 閉じる
+                    SerialPortControl.SerialPortControlClose();
+                }
+                else
+                {
+                    // OK
+                    Console.WriteLine("OK");
+                }
 
                 // 無効化
                 PictSelectButton.Invoke(new Action(() => PictSelectButton.Enabled = true));

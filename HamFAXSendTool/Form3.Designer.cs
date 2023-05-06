@@ -36,6 +36,7 @@
             // 
             // CallSignInputTextBox
             // 
+            CallSignInputTextBox.CharacterCasing = CharacterCasing.Upper;
             CallSignInputTextBox.Font = new Font("Yu Gothic UI", 11F, FontStyle.Regular, GraphicsUnit.Point);
             CallSignInputTextBox.Location = new Point(12, 75);
             CallSignInputTextBox.Name = "CallSignInputTextBox";

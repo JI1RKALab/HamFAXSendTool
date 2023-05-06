@@ -3,6 +3,31 @@
     public partial class Form3 : Form
     {
         /// <summary>
+        /// Backspace キー
+        /// </summary>
+        const char BACKSPACE = '\b';
+
+        /// <summary>
+        /// CTRL+ C
+        /// </summary>
+        const char CTRL_C = '\x03';
+
+        /// <summary>
+        /// CTRL+ V
+        /// </summary>
+        const char CTRL_V = '\x16';
+
+        /// <summary>
+        /// CTRL+ X
+        /// </summary>
+        const char CTRL_X = '\x18';
+
+        /// <summary>
+        /// CTRL+ Z
+        /// </summary>
+        const char CTRL_Z = '\x1A';
+
+        /// <summary>
         /// インスタンス生成
         /// </summary>
         public Form3()
@@ -19,6 +44,47 @@
         private void CallSignInputTextBox_KeyPress(object sender, KeyPressEventArgs e)
         {
             // wip
+            switch (e.KeyChar)
+            {
+                // 判定
+                case BACKSPACE:
+                case CTRL_C:
+                case CTRL_V:
+                case CTRL_X:
+                case CTRL_Z:
+                    // OK
+                    break;
+                default:
+                    // OK
+                    if (!IsValidChar(e.KeyChar))
+                    {
+                        // OK
+                        e.Handled = true;
+                        return;
+                    }
+                    else
+                    {
+                        // OK
+                        e.Handled = false;
+                    }
+
+                    // 抜け
+                    break;
+            }
+
+            // end
+            base.OnKeyPress(e);
+        }
+
+        /// <summary>
+        /// OK
+        /// </summary>
+        /// <param name="InputChar"></param>
+        /// <returns></returns>
+        private bool IsValidChar(char InputChar)
+        {
+            // OK
+            return (InputChar >= 'A' && InputChar <= 'Z') || (InputChar >= 'a' && InputChar <= 'z') || (InputChar >= '0' && InputChar <= '9');
         }
 
         /// <summary>
@@ -37,7 +103,7 @@
             else
             {
                 // 登録
-                new SettingClass().CallSignSettingFileSave(CallSignInputTextBox.Text);
+                new SettingClass().CallSignSettingFileSave(CallSignInputTextBox.Text.ToUpper());
 
                 // 閉じる
                 Close();
