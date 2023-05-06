@@ -30,7 +30,7 @@ namespace net.sictransit.wefax
         {
             var modulation = Enumerable.Range(0, imageWidth).Select(_ => -1f).ToArray();
 
-            return Enumerable.Range(0, 20 * 2).Select(_ => GenerateLineForStartAndStop(modulation)).SelectMany(x => x).ToArray();
+            return Enumerable.Range(0, 30).Select(_ => GenerateLineForStartAndStop(modulation)).SelectMany(x => x).ToArray();
         }
 
         public float[] GenerateStart(bool is288Flag)

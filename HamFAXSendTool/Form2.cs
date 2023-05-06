@@ -152,6 +152,7 @@ namespace HamFAXSendTool
                 // start
                 try
                 {
+                    // OK
                     if (SerialPortController is null)
                     {
                         // Error
@@ -159,11 +160,12 @@ namespace HamFAXSendTool
                     }
                     else
                     {
+                        // OK
                         if (ComPortChecker)
                         {
                             // OK
                             SerialPortController.SerialPortControlClose();
-                            ((Button)sender).Text = "テスト停止";
+                            ((Button)sender).Text = "テスト開始";
                             ((Button)sender).BackColor = SystemColors.Control;
                             ((Button)sender).ForeColor = SystemColors.ControlText;
                             SettingButton.Enabled = true;
@@ -176,6 +178,11 @@ namespace HamFAXSendTool
                         }
                         else
                         {
+                            // 上書き
+                            SerialPortController = new(ComPortListBox.SelectedItem.ToString(),
+                                                                        ComVerListBox.SelectedItem.ToString(),
+                                                                        int.Parse(BPSTextBox.Text));
+
                             // OK
                             SerialPortController.SerialPortControlOpen();
                             ((Button)sender).Text = "テスト停止";
@@ -260,6 +267,9 @@ namespace HamFAXSendTool
                                                     ComVerListBox.SelectedItem.ToString(),
                                                     int.Parse(BPSTextBox.Text),
                                                     SoundCardListBox.SelectedItem.ToString());
+
+                // 閉じる
+                Close();
             }
         }
 

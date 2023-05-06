@@ -125,6 +125,7 @@ namespace HamFAXSendTool
                 // サイズモードをズームに設定
                 SendPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
 
+                // OK
                 if (SendPictureBox.Image.Width > SendPictureBox.Image.Height)
                 {
                     // 横長の場合はそれでOK
@@ -329,8 +330,20 @@ namespace HamFAXSendTool
                     {
                         // 設定
                         TimeSpanValue = MainOutputStream.TotalTime - MainOutputStream.CurrentTime;
-                        RemainValue = Math.Round(MainOutputStream.CurrentTime / MainOutputStream.TotalTime, 1);
+                        RemainValue = Math.Round(MainOutputStream.CurrentTime / MainOutputStream.TotalTime * 100);
                         DoingLabel.Invoke(new Action(() => DoingLabel.Text = RemainValue + "%送信中..." + Environment.NewLine + "残り:" + TimeSpanValue.Minutes + "分" + TimeSpanValue.Seconds + "秒"));
+
+                        // 判定
+                        if (MainOutputStream.CurrentTime == MainOutputStream.TotalTime)
+                        {
+                            // 抜け
+                            break;
+                        }
+                        else
+                        {
+                            // 継続
+                            continue;
+                        }
                     }
 
                     // 送信完了時は掃除
