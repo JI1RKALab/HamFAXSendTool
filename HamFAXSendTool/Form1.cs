@@ -198,8 +198,17 @@ namespace HamFAXSendTool
             }
             else
             {
-                // OK
-                Console.WriteLine("OK");
+                // ある?
+                if (DirectSoundOut.Devices.Select(x => x.Description == SettingClass.SoundCard).ToList().Count == 0)
+                {
+                    // ERROR
+                    ErrorList.Add("・設定済みサウンドカード無効");
+                }
+                else
+                {
+                    // OK
+                    Console.WriteLine("OK");
+                }
             }
             if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
             {
@@ -274,6 +283,9 @@ namespace HamFAXSendTool
             // task
             Task.Run(() =>
             {
+                // errorfalse
+                bool IsErrorFlag = new();
+
                 // Status
                 DoingLabel.Invoke(new Action(() => DoingLabel.Text = "FAX信号生成中..."));
 
@@ -419,6 +431,12 @@ namespace HamFAXSendTool
                         // 捨て
                         MainOutputStream.Dispose();
                     }
+
+                    // ERRor
+                    IsErrorFlag = true;
+
+                    // どちらにせよ、ファイルは消す
+                    DeleteFAXFile();
                 }
 
                 // チェック
@@ -433,14 +451,26 @@ namespace HamFAXSendTool
                     Console.WriteLine("OK");
                 }
 
-                // 無効化
+                // 判定
+                if (IsErrorFlag)
+                {
+                    // 有効化
+                    WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = true));
+                    SendButton.Invoke(new Action(() => SendButton.Enabled = true));
+                }
+                else
+                {
+                    // 無効化
+                    WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = false));
+                    SendButton.Invoke(new Action(() => SendButton.Enabled = false));
+                    IOCComboBox.Invoke(new Action(() => IOCComboBox.SelectedIndex = -1));
+                }
+
+                // 共通
                 PictSelectButton.Invoke(new Action(() => PictSelectButton.Enabled = true));
                 EndButton.Invoke(new Action(() => EndButton.Enabled = true));
-                WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = false));
-                SendButton.Invoke(new Action(() => SendButton.Enabled = false));
                 StopButton.Invoke(new Action(() => StopButton.Enabled = false));
                 DoingLabel.Invoke(new Action(() => DoingLabel.Text = string.Empty));
-                IOCComboBox.Invoke(new Action(() => IOCComboBox.SelectedIndex = -1));
             });
         }
 
@@ -485,26 +515,35 @@ namespace HamFAXSendTool
                 ImagePath = string.Empty;
 
                 // どちらにせよ、ファイルは消す
-                if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+                DeleteFAXFile();
+            });
+        }
+
+        /// <summary>
+        /// ファイル消し
+        /// </summary>
+        private void DeleteFAXFile() 
+        {
+            // 判定
+            if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+            {
+                // OK
+                Console.WriteLine("OK");
+            }
+            else
+            {
+                // 消す
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
                 {
                     // OK
-                    Console.WriteLine("OK");
+                    File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav"));
                 }
                 else
                 {
-                    // 消す
-                    if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
-                    {
-                        // OK
-                        File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav"));
-                    }
-                    else
-                    {
-                        // OK
-                        Console.Write("OK");
-                    }
+                    // OK
+                    Console.Write("OK");
                 }
-            });
+            }
         }
 
         /// <summary>
