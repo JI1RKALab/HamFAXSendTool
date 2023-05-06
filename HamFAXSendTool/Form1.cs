@@ -1,7 +1,6 @@
 using NAudio.Wave;
 using net.sictransit.wefax;
 using System.Reflection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using Image = System.Drawing.Image;
 
 namespace HamFAXSendTool

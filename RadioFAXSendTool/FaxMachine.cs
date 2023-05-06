@@ -6,7 +6,6 @@ using SixLabors.ImageSharp.PixelFormats;
 using SixLabors.ImageSharp.Processing;
 using System;
 using System.Linq;
-using System.Text;
 
 namespace net.sictransit.wefax
 {
