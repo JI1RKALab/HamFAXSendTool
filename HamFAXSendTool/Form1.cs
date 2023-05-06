@@ -306,8 +306,8 @@ namespace HamFAXSendTool
                     FAXPlayer = new();
 
                     // 初期化
-                    FAXPlayer.Init(VolumeStream);
                     FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
+                    FAXPlayer.Init(VolumeStream);
 
                     // スタート
                     SerialPortControl.SerialPortControlOpen();
@@ -516,8 +516,8 @@ namespace HamFAXSendTool
                 FAXPlayer = new();
 
                 // 初期化
-                FAXPlayer.Init(VolumeStream);
                 FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
+                FAXPlayer.Init(VolumeStream);
 
                 // 再生
                 FAXPlayer.Play();
@@ -587,7 +587,7 @@ namespace HamFAXSendTool
             }
 
             // 戻し
-            return PlaySoundCardIndexNo;
+            return PlaySoundCardIndexNo - 1;
         }
 
         /// <summary>
