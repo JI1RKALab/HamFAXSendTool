@@ -8,11 +8,6 @@ namespace HamFAXSendTool
     public partial class Form1 : Form
     {
         /// <summary>
-        /// イメージパス
-        /// </summary>
-        string ImagePath = string.Empty;
-
-        /// <summary>
         /// FAX停止信号パス
         /// </summary>
         string FAXStopSignalPath = string.Empty;
@@ -94,6 +89,9 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void PictSelectButton_Click(object sender, EventArgs e)
         {
+            // Select
+            string ImagePath = string.Empty;
+
             // ファイルOpen
             using (OpenFileDialog FileDialog = new())
             {
@@ -348,7 +346,6 @@ namespace HamFAXSendTool
                     // 送信完了時は掃除
                     MainOutputStream.Dispose();
                     SendPictureBox.Image = null;
-                    ImagePath = string.Empty;
 
                     // どちらにせよ、ファイルは消す
                     if (string.IsNullOrWhiteSpace(FAXSignalPath))
@@ -524,7 +521,6 @@ namespace HamFAXSendTool
 
                 // 送信完了時は掃除
                 SendPictureBox.Invoke(new Action(() => SendPictureBox.Image = null));
-                ImagePath = string.Empty;
 
                 // どちらにせよ、ファイルは消す
                 DeleteFAXFile();
@@ -690,11 +686,10 @@ namespace HamFAXSendTool
                 File.Copy(FAXSignalPath, SignalSaveFileDialog.FileName, true);
 
                 // 送信完了時は掃除
-                ImagePath = string.Empty;
                 SendPictureBox.Image = null;
 
                 // ボタン復活
-                PictSelectButton.Enabled = false;
+                PictSelectButton.Enabled = true;
                 WAVEBbutton.Enabled = false;
                 SendButton.Enabled = false;
                 EndButton.Enabled = true;
@@ -766,8 +761,14 @@ namespace HamFAXSendTool
         /// <returns></returns>
         private string FAXSignalGenerator(bool Is288Flag)
         {
+            // PictBoxに出ている画像を保存する
+            string SendImagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "SendImage.png");
+
+            // 一時保存
+            SendPictureBox.Image.Save(SendImagePath, System.Drawing.Imaging.ImageFormat.Png);
+
             // ImageFilePath
-            string TempImagePath = new ImageMake().MakeImage(ImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
             // WavePath
             string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav");
@@ -783,6 +784,7 @@ namespace HamFAXSendTool
 
             // テンポラリファイル消す
             File.Delete(TempImagePath);
+            File.Delete(SendImagePath);
 
             // 戻し
             return OutputFAXSignalPath;
