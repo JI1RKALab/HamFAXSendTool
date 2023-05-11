@@ -1,6 +1,8 @@
 using NAudio.Wave;
 using net.sictransit.wefax;
+using System.Diagnostics;
 using System.Reflection;
+using System.Security.Policy;
 using Image = System.Drawing.Image;
 
 namespace HamFAXSendTool
@@ -836,7 +838,12 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void DispOnLineHelpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // wip
+            // URL
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = "http://ji1rka.radio/fax-manual.pdf",
+                UseShellExecute = true,
+            });
         }
     }
 }
