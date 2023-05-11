@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form2));
             ComPortLabel = new Label();
             ComPortListBox = new ListBox();
             SoundCardListBox = new ListBox();
@@ -182,6 +183,7 @@
             Controls.Add(SoundCardLabel);
             Controls.Add(ComPortListBox);
             Controls.Add(ComPortLabel);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             Name = "Form2";
             Text = "COM・サウンドカード設定";

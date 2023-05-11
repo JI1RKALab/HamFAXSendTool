@@ -530,7 +530,7 @@ namespace HamFAXSendTool
         /// <summary>
         /// ÉtÉ@ÉCÉãè¡Çµ
         /// </summary>
-        private void DeleteFAXFile() 
+        private void DeleteFAXFile()
         {
             // îªíË
             if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))

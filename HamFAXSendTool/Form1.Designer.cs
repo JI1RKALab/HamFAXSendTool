@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             SendPictureBox = new PictureBox();
             PictSelectButton = new Button();
             SendButton = new Button();
@@ -41,8 +42,8 @@
             設定メニューMToolStripMenuItem = new ToolStripMenuItem();
             ComPoatSettingStripMenu = new ToolStripMenuItem();
             ヘルプHToolStripMenuItem = new ToolStripMenuItem();
-            DoingLabel = new Label();
             DispOnLineHelpToolStripMenuItem = new ToolStripMenuItem();
+            DoingLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)SendPictureBox).BeginInit();
             TopMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -165,7 +166,7 @@
             // ComPoatSettingStripMenu
             // 
             ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
-            ComPoatSettingStripMenu.Size = new Size(224, 26);
+            ComPoatSettingStripMenu.Size = new Size(140, 26);
             ComPoatSettingStripMenu.Text = "設定(&S)";
             ComPoatSettingStripMenu.Click += SettingStripMenu_Click;
             // 
@@ -176,6 +177,13 @@
             ヘルプHToolStripMenuItem.Size = new Size(79, 24);
             ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)";
             // 
+            // DispOnLineHelpToolStripMenuItem
+            // 
+            DispOnLineHelpToolStripMenuItem.Name = "DispOnLineHelpToolStripMenuItem";
+            DispOnLineHelpToolStripMenuItem.Size = new Size(222, 26);
+            DispOnLineHelpToolStripMenuItem.Text = "オンラインヘルプを表示";
+            DispOnLineHelpToolStripMenuItem.Click += DispOnLineHelpToolStripMenuItem_Click;
+            // 
             // DoingLabel
             // 
             DoingLabel.AutoSize = true;
@@ -184,13 +192,6 @@
             DoingLabel.Name = "DoingLabel";
             DoingLabel.Size = new Size(0, 28);
             DoingLabel.TabIndex = 7;
-            // 
-            // DispOnLineHelpToolStripMenuItem
-            // 
-            DispOnLineHelpToolStripMenuItem.Name = "DispOnLineHelpToolStripMenuItem";
-            DispOnLineHelpToolStripMenuItem.Size = new Size(224, 26);
-            DispOnLineHelpToolStripMenuItem.Text = "オンラインヘルプを表示";
-            DispOnLineHelpToolStripMenuItem.Click += DispOnLineHelpToolStripMenuItem_Click;
             // 
             // Form1
             // 
@@ -208,6 +209,7 @@
             Controls.Add(PictSelectButton);
             Controls.Add(SendPictureBox);
             Controls.Add(TopMenuStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = TopMenuStrip;
             MaximizeBox = false;
             Name = "Form1";

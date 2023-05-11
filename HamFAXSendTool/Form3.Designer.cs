@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form3));
             CallSignInputTextBox = new TextBox();
             SettingButton = new Button();
             CallSineLabel = new Label();
@@ -85,6 +86,7 @@
             Controls.Add(CallSineLabel);
             Controls.Add(SettingButton);
             Controls.Add(CallSignInputTextBox);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Form3";
