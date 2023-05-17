@@ -46,6 +46,9 @@
             // setting
             CallSignInputTextBox.Text = string.IsNullOrWhiteSpace(SettingClass.UserCallSign) 
                                                     ? string.Empty : SettingClass.UserCallSign;
+
+            // OK
+            CallSignInputTextBox.Select(CallSignInputTextBox.Text.Length, 0);
         }
 
         /// <summary>
