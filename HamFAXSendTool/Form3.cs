@@ -37,6 +37,18 @@
         }
 
         /// <summary>
+        /// OK
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Form3_Load(object sender, EventArgs e)
+        {
+            // setting
+            CallSignInputTextBox.Text = string.IsNullOrWhiteSpace(SettingClass.UserCallSign) 
+                                                    ? string.Empty : SettingClass.UserCallSign;
+        }
+
+        /// <summary>
         /// バリデーションチェック
         /// </summary>
         /// <param name="sender"></param>

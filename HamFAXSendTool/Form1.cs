@@ -308,8 +308,17 @@ namespace HamFAXSendTool
                     FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
                     FAXPlayer.Init(VolumeStream);
 
-                    // スタート
-                    SerialPortControl.SerialPortControlOpen();
+                    // COM設定?
+                    if (SettingClass.ComPort.Contains("COM"))
+                    {
+                        // スタート
+                        SerialPortControl.SerialPortControlOpen();
+                    }
+                    else 
+                    {
+                        // NG
+                        Console.WriteLine("NG");
+                    }
 
                     // 再生
                     FAXPlayer.Play();
@@ -607,6 +616,9 @@ namespace HamFAXSendTool
         {
             // 設定ダイアログ表示
             new Form2().ShowDialog();
+
+            // 設定済み
+            Text = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
         }
 
         /// <summary>

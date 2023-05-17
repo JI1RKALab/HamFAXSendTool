@@ -328,5 +328,58 @@ namespace HamFAXSendTool
                 Console.WriteLine("OK");
             }
         }
+
+        /// <summary>
+        /// 判定
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ComPortListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 判定
+            ListBox TempBox = (ListBox)sender;
+
+            // 判定
+            if (TempBox.SelectedItem.ToString().Contains("COM"))
+            {
+                // OK
+                ComTestButton.Enabled = true;
+            }
+            else
+            {
+                // 無効
+                ComTestButton.Enabled = false;
+            }
+        }
+
+        /// <summary>
+        /// 開く
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CallSineEditButton_Click(object sender, EventArgs e)
+        {
+            // 再設定確認
+            if (string.IsNullOrWhiteSpace(SettingClass.UserCallSign))
+            {
+                // フォーム3
+                new Form3().ShowDialog();
+            }
+            else
+            {
+                // 確認
+                if (MessageBox.Show("既にコールサインは設定済みです" + Environment.NewLine + "再設定しますか?",
+                    "確認", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    // フォーム3
+                    new Form3().ShowDialog();
+                }
+                else
+                {
+                    // OK
+                    Console.WriteLine("OK");
+                }
+            }
+        }
     }
 }

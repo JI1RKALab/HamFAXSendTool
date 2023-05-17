@@ -41,6 +41,8 @@
             ComVerLabel = new Label();
             ComSpeedLabel = new Label();
             BPSTextBox = new TextBox();
+            CallSineEditButton = new Button();
+            CallSineEditLabel = new Label();
             SuspendLayout();
             // 
             // ComPortLabel
@@ -57,11 +59,12 @@
             // 
             ComPortListBox.FormattingEnabled = true;
             ComPortListBox.ItemHeight = 20;
-            ComPortListBox.Items.AddRange(new object[] { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "COM10", "COM11", "COM12", "COM13", "COM14", "COM15", "COM16", "COM17", "COM18", "COM19", "COM20", "COM21", "COM22", "COM23", "COM24", "COM25", "COM26", "COM27", "COM28", "COM29", "COM30" });
+            ComPortListBox.Items.AddRange(new object[] { "指定なし", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "COM10", "COM11", "COM12", "COM13", "COM14", "COM15", "COM16", "COM17", "COM18", "COM19", "COM20", "COM21", "COM22", "COM23", "COM24", "COM25", "COM26", "COM27", "COM28", "COM29", "COM30" });
             ComPortListBox.Location = new Point(12, 52);
             ComPortListBox.Name = "ComPortListBox";
             ComPortListBox.Size = new Size(193, 284);
             ComPortListBox.TabIndex = 1;
+            ComPortListBox.SelectedIndexChanged += ComPortListBox_SelectedIndexChanged;
             // 
             // SoundCardListBox
             // 
@@ -88,7 +91,7 @@
             SettingButton.Location = new Point(366, 423);
             SettingButton.Name = "SettingButton";
             SettingButton.Size = new Size(193, 48);
-            SettingButton.TabIndex = 10;
+            SettingButton.TabIndex = 12;
             SettingButton.Text = "設定";
             SettingButton.UseVisualStyleBackColor = true;
             SettingButton.Click += SettingButton_Click;
@@ -99,7 +102,7 @@
             CloseButton.Location = new Point(583, 423);
             CloseButton.Name = "CloseButton";
             CloseButton.Size = new Size(193, 48);
-            CloseButton.TabIndex = 11;
+            CloseButton.TabIndex = 13;
             CloseButton.Text = "閉じる";
             CloseButton.UseVisualStyleBackColor = true;
             CloseButton.Click += CloseButton_Click;
@@ -166,11 +169,34 @@
             BPSTextBox.TabIndex = 5;
             BPSTextBox.KeyPress += BPSTextBox_KeyPress;
             // 
+            // CallSineEditButton
+            // 
+            CallSineEditButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            CallSineEditButton.Location = new Point(515, 356);
+            CallSineEditButton.Name = "CallSineEditButton";
+            CallSineEditButton.Size = new Size(193, 48);
+            CallSineEditButton.TabIndex = 11;
+            CallSineEditButton.Text = "開く";
+            CallSineEditButton.UseVisualStyleBackColor = true;
+            CallSineEditButton.Click += CallSineEditButton_Click;
+            // 
+            // CallSineEditLabel
+            // 
+            CallSineEditLabel.AutoSize = true;
+            CallSineEditLabel.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            CallSineEditLabel.Location = new Point(368, 368);
+            CallSineEditLabel.Name = "CallSineEditLabel";
+            CallSineEditLabel.Size = new Size(137, 25);
+            CallSineEditLabel.TabIndex = 10;
+            CallSineEditLabel.Text = "コールサイン設定";
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(797, 491);
+            Controls.Add(CallSineEditButton);
+            Controls.Add(CallSineEditLabel);
             Controls.Add(BPSTextBox);
             Controls.Add(ComSpeedLabel);
             Controls.Add(ComVerListBox);
@@ -206,5 +232,7 @@
         private Label ComVerLabel;
         private Label ComSpeedLabel;
         private TextBox BPSTextBox;
+        private Button CallSineEditButton;
+        private Label CallSineEditLabel;
     }
 }

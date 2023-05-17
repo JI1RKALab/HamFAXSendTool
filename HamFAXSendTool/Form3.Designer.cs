@@ -91,6 +91,7 @@
             MinimizeBox = false;
             Name = "Form3";
             Text = "コールサイン設定";
+            Load += Form3_Load;
             ResumeLayout(false);
             PerformLayout();
         }

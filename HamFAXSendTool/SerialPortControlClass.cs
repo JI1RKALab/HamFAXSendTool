@@ -13,15 +13,15 @@ namespace HamFAXSendTool
         /// <summary>
         /// 初期化
         /// </summary>
-        /// <param name="ComPost"></param>
+        /// <param name="ComPort"></param>
         /// <param name="ComVer"></param>
         /// <param name="ComSpeed"></param>
-        public SerialPortControlClass(string ComPost, string ComVer, int ComSpeed)
+        public SerialPortControlClass(string ComPort, string ComVer, int ComSpeed)
         {
             // 設定
             SerialPort = new SerialPort()
             {
-                PortName = ComPost,
+                PortName = (ComPort == "指定なし") ? "NONE" : ComPort,
                 BaudRate = ComSpeed,
                 Handshake = Handshake.RequestToSend,
                 StopBits = StopBits.One,
