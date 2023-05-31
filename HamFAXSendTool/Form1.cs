@@ -34,6 +34,16 @@ namespace HamFAXSendTool
         bool ForceStop = new();
 
         /// <summary>
+        /// 回転角度
+        /// </summary>
+        int RotateValue = 0;
+
+        /// <summary>
+        /// 画像パスt
+        /// </summary>
+        string ImagePath = string.Empty;
+
+        /// <summary>
         /// イニシャライズ
         /// </summary>
         public Form1()
@@ -90,9 +100,6 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void PictSelectButton_Click(object sender, EventArgs e)
         {
-            // Select
-            string ImagePath = string.Empty;
-
             // ファイルOpen
             using (OpenFileDialog FileDialog = new())
             {
@@ -127,14 +134,20 @@ namespace HamFAXSendTool
                 if (SendPictureBox.Image.Width > SendPictureBox.Image.Height)
                 {
                     // 横長の場合はそれでOK
-                    Console.WriteLine("OK");
+                    RotateValue = 0;
                 }
                 else
                 {
                     // 縦長の場合は調整する
                     SendPictureBox.Image.RotateFlip(RotateFlipType.Rotate90FlipXY);
+
+                    // 角度調整
+                    RotateValue = 90;
                 }
             }
+
+            // 画像回転ボタンを有効にする
+            PictRotateButton.Enabled = true;
 
             // コンボが-1でない場合はボタン有効化
             if (IOCComboBox.SelectedIndex == -1)
@@ -146,6 +159,55 @@ namespace HamFAXSendTool
             {
                 WAVEBbutton.Enabled = true;
                 SendButton.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// 画像回転
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PictRotateButton_Click(object sender, EventArgs e)
+        {
+            // 設定
+            using (Image ImageData = Image.FromFile(ImagePath))
+            {
+                // ピクチャボックスに画像を表示
+                SendPictureBox.Image = new Bitmap(ImagePath);
+
+                // サイズモードをズームに設定
+                SendPictureBox.SizeMode = PictureBoxSizeMode.Zoom;
+
+                // 回転
+                if (RotateValue == 0)
+                {
+                    // 90
+                    SendPictureBox.Image.RotateFlip(RotateFlipType.Rotate90FlipXY);
+                    RotateValue = 90;
+                }
+                else if (RotateValue == 90)
+                {
+                    // 180
+                    SendPictureBox.Image.RotateFlip(RotateFlipType.RotateNoneFlipXY);
+                    RotateValue = 180;
+                }
+                else if (RotateValue == 180)
+                {
+                    // 270
+                    SendPictureBox.Image.RotateFlip(RotateFlipType.Rotate270FlipXY);
+                    RotateValue = 270;
+                }
+                else if (RotateValue == 270)
+                {
+                    // 0
+                    SendPictureBox.Image.RotateFlip(RotateFlipType.Rotate180FlipXY);
+                    RotateValue = 0;
+                }
+                else
+                {
+                    // OK
+                    Console.WriteLine("OK");
+                }
             }
         }
 
@@ -272,6 +334,7 @@ namespace HamFAXSendTool
         {
             // ボタン
             PictSelectButton.Enabled = false;
+            PictRotateButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
             EndButton.Enabled = false;
@@ -314,7 +377,7 @@ namespace HamFAXSendTool
                         // スタート
                         SerialPortControl.SerialPortControlOpen();
                     }
-                    else 
+                    else
                     {
                         // NG
                         Console.WriteLine("NG");
@@ -513,7 +576,7 @@ namespace HamFAXSendTool
                 StopButton.Invoke(new Action(() => StopButton.Enabled = false));
 
                 // 停止信号を流す
-                DoingLabel.Invoke(new Action(() => DoingLabel.Text = "停止信号強制送出中..."));
+                DoingLabel.Invoke(new Action(() => DoingLabel.Text = "停止信号送出中..."));
 
                 // 再生部分の生成
                 MainOutputStream = new WaveFileReader(FAXStopSignalPath);
@@ -630,6 +693,7 @@ namespace HamFAXSendTool
         {
             // ボタン無効化
             PictSelectButton.Enabled = false;
+            PictRotateButton.Enabled = false;
             WAVEBbutton.Enabled = false;
             SendButton.Enabled = false;
             EndButton.Enabled = false;
@@ -712,6 +776,7 @@ namespace HamFAXSendTool
             {
                 // OK
                 PictSelectButton.Enabled = true;
+                PictRotateButton.Enabled = true;
                 WAVEBbutton.Enabled = true;
                 SendButton.Enabled = true;
                 EndButton.Enabled = true;
@@ -781,7 +846,7 @@ namespace HamFAXSendTool
             SendPictureBox.Image.Save(SendImagePath, System.Drawing.Imaging.ImageFormat.Png);
 
             // ImageFilePath
-            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), RotateValue);
 
             // WavePath
             string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav");

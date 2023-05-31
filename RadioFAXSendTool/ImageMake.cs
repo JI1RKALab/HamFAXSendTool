@@ -12,7 +12,7 @@ namespace net.sictransit.wefax
         /// </summary>
         /// <param name="ImageFileName"></param>
         /// <returns></returns>
-        public string MakeImage(string ImageFileName,string ExeDirPath)
+        public string MakeImage(string ImageFileName, string ExeDirPath, int RotateValue)
         {
             // ファイル名
             string TempFilePath = System.IO.Path.Combine(ExeDirPath, "TempImage.png");
@@ -21,10 +21,25 @@ namespace net.sictransit.wefax
             using (Image ImageData = Image.Load<Rgb24>(ImageFileName))
             {
                 // 判定
-                if (ImageData.Width > ImageData.Height)
+                if (RotateValue == 0)
                 {
                     // 縦倒し
                     ImageData.Mutate(x => x.Rotate(RotateMode.Rotate90));
+                }
+                else if (RotateValue == 90)
+                {
+                    // 縦倒し
+                    ImageData.Mutate(x => x.Rotate(RotateMode.Rotate180));
+                }
+                else if (RotateValue == 180)
+                {
+                    // 縦倒し
+                    ImageData.Mutate(x => x.Rotate(RotateMode.None));
+                }
+                else if (RotateValue == 270)
+                {
+                    // 縦倒し
+                    ImageData.Mutate(x => x.Rotate(RotateMode.Rotate270));
                 }
                 else
                 {
