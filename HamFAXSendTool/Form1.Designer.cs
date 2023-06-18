@@ -52,10 +52,9 @@
             // SendPictureBox
             // 
             SendPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            SendPictureBox.Location = new Point(10, 28);
-            SendPictureBox.Margin = new Padding(3, 2, 3, 2);
+            SendPictureBox.Location = new Point(11, 37);
             SendPictureBox.Name = "SendPictureBox";
-            SendPictureBox.Size = new Size(846, 471);
+            SendPictureBox.Size = new Size(973, 628);
             SendPictureBox.TabIndex = 0;
             SendPictureBox.TabStop = false;
             // 
@@ -63,10 +62,9 @@
             // 
             PictSelectButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PictSelectButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            PictSelectButton.Location = new Point(880, 28);
-            PictSelectButton.Margin = new Padding(3, 2, 3, 2);
+            PictSelectButton.Location = new Point(1002, 37);
             PictSelectButton.Name = "PictSelectButton";
-            PictSelectButton.Size = new Size(169, 36);
+            PictSelectButton.Size = new Size(217, 48);
             PictSelectButton.TabIndex = 1;
             PictSelectButton.Text = "画像選択";
             PictSelectButton.UseVisualStyleBackColor = true;
@@ -77,10 +75,9 @@
             SendButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SendButton.Enabled = false;
             SendButton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            SendButton.Location = new Point(880, 271);
-            SendButton.Margin = new Padding(3, 2, 3, 2);
+            SendButton.Location = new Point(1002, 361);
             SendButton.Name = "SendButton";
-            SendButton.Size = new Size(169, 36);
+            SendButton.Size = new Size(217, 48);
             SendButton.TabIndex = 6;
             SendButton.Text = "送信";
             SendButton.UseVisualStyleBackColor = true;
@@ -92,10 +89,9 @@
             StopButton.AutoSize = true;
             StopButton.Enabled = false;
             StopButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            StopButton.Location = new Point(880, 403);
-            StopButton.Margin = new Padding(3, 2, 3, 2);
+            StopButton.Location = new Point(1002, 537);
             StopButton.Name = "StopButton";
-            StopButton.Size = new Size(169, 36);
+            StopButton.Size = new Size(217, 48);
             StopButton.TabIndex = 9;
             StopButton.Text = "停止";
             StopButton.UseVisualStyleBackColor = true;
@@ -105,10 +101,9 @@
             // 
             EndButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             EndButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            EndButton.Location = new Point(880, 463);
-            EndButton.Margin = new Padding(3, 2, 3, 2);
+            EndButton.Location = new Point(1002, 617);
             EndButton.Name = "EndButton";
-            EndButton.Size = new Size(169, 36);
+            EndButton.Size = new Size(217, 48);
             EndButton.TabIndex = 10;
             EndButton.Text = "終了";
             EndButton.UseVisualStyleBackColor = true;
@@ -119,9 +114,9 @@
             StatusTitleLable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             StatusTitleLable.AutoSize = true;
             StatusTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            StatusTitleLable.Location = new Point(880, 327);
+            StatusTitleLable.Location = new Point(1002, 436);
             StatusTitleLable.Name = "StatusTitleLable";
-            StatusTitleLable.Size = new Size(73, 21);
+            StatusTitleLable.Size = new Size(92, 28);
             StatusTitleLable.TabIndex = 7;
             StatusTitleLable.Text = "スタータス:";
             // 
@@ -130,11 +125,10 @@
             IOCComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             IOCComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             IOCComboBox.FormattingEnabled = true;
-            IOCComboBox.Items.AddRange(new object[] { "288(アマチュア無線モード)", "576(業務局モード)" });
-            IOCComboBox.Location = new Point(880, 169);
-            IOCComboBox.Margin = new Padding(3, 2, 3, 2);
+            IOCComboBox.Items.AddRange(new object[] { "288(アマチュア無線モード1)", "288/576(アマチュア無線モード2)", "576(業務局モード)" });
+            IOCComboBox.Location = new Point(1002, 225);
             IOCComboBox.Name = "IOCComboBox";
-            IOCComboBox.Size = new Size(169, 23);
+            IOCComboBox.Size = new Size(217, 28);
             IOCComboBox.TabIndex = 4;
             IOCComboBox.SelectedIndexChanged += IOCComboBox_SelectedIndexChanged;
             // 
@@ -143,9 +137,9 @@
             IOCTitleLable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             IOCTitleLable.AutoSize = true;
             IOCTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            IOCTitleLable.Location = new Point(880, 137);
+            IOCTitleLable.Location = new Point(1002, 183);
             IOCTitleLable.Name = "IOCTitleLable";
-            IOCTitleLable.Size = new Size(78, 21);
+            IOCTitleLable.Size = new Size(97, 28);
             IOCTitleLable.TabIndex = 3;
             IOCTitleLable.Text = "協動係数:";
             // 
@@ -154,10 +148,9 @@
             WAVEBbutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             WAVEBbutton.Enabled = false;
             WAVEBbutton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            WAVEBbutton.Location = new Point(880, 214);
-            WAVEBbutton.Margin = new Padding(3, 2, 3, 2);
+            WAVEBbutton.Location = new Point(1002, 285);
             WAVEBbutton.Name = "WAVEBbutton";
-            WAVEBbutton.Size = new Size(169, 36);
+            WAVEBbutton.Size = new Size(217, 48);
             WAVEBbutton.TabIndex = 5;
             WAVEBbutton.Text = "FAX信号保存";
             WAVEBbutton.UseVisualStyleBackColor = true;
@@ -169,8 +162,8 @@
             TopMenuStrip.Items.AddRange(new ToolStripItem[] { 設定メニューMToolStripMenuItem, ヘルプHToolStripMenuItem });
             TopMenuStrip.Location = new Point(0, 0);
             TopMenuStrip.Name = "TopMenuStrip";
-            TopMenuStrip.Padding = new Padding(5, 2, 0, 2);
-            TopMenuStrip.Size = new Size(1060, 24);
+            TopMenuStrip.Padding = new Padding(6, 3, 0, 3);
+            TopMenuStrip.Size = new Size(1232, 30);
             TopMenuStrip.TabIndex = 0;
             TopMenuStrip.Text = "menuStrip1";
             // 
@@ -178,13 +171,13 @@
             // 
             設定メニューMToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { ComPoatSettingStripMenu });
             設定メニューMToolStripMenuItem.Name = "設定メニューMToolStripMenuItem";
-            設定メニューMToolStripMenuItem.Size = new Size(95, 20);
+            設定メニューMToolStripMenuItem.Size = new Size(118, 24);
             設定メニューMToolStripMenuItem.Text = "設定メニュー(&M)";
             // 
             // ComPoatSettingStripMenu
             // 
             ComPoatSettingStripMenu.Name = "ComPoatSettingStripMenu";
-            ComPoatSettingStripMenu.Size = new Size(112, 22);
+            ComPoatSettingStripMenu.Size = new Size(140, 26);
             ComPoatSettingStripMenu.Text = "設定(&S)";
             ComPoatSettingStripMenu.Click += SettingStripMenu_Click;
             // 
@@ -192,13 +185,13 @@
             // 
             ヘルプHToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { DispOnLineHelpToolStripMenuItem });
             ヘルプHToolStripMenuItem.Name = "ヘルプHToolStripMenuItem";
-            ヘルプHToolStripMenuItem.Size = new Size(65, 20);
+            ヘルプHToolStripMenuItem.Size = new Size(79, 24);
             ヘルプHToolStripMenuItem.Text = "ヘルプ(&H)";
             // 
             // DispOnLineHelpToolStripMenuItem
             // 
             DispOnLineHelpToolStripMenuItem.Name = "DispOnLineHelpToolStripMenuItem";
-            DispOnLineHelpToolStripMenuItem.Size = new Size(180, 22);
+            DispOnLineHelpToolStripMenuItem.Size = new Size(222, 26);
             DispOnLineHelpToolStripMenuItem.Text = "オンラインヘルプを表示";
             DispOnLineHelpToolStripMenuItem.Click += DispOnLineHelpToolStripMenuItem_Click;
             // 
@@ -207,9 +200,9 @@
             DoingLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DoingLabel.AutoSize = true;
             DoingLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            DoingLabel.Location = new Point(880, 361);
+            DoingLabel.Location = new Point(1002, 481);
             DoingLabel.Name = "DoingLabel";
-            DoingLabel.Size = new Size(0, 21);
+            DoingLabel.Size = new Size(0, 28);
             DoingLabel.TabIndex = 8;
             // 
             // PictRotateButton
@@ -217,10 +210,9 @@
             PictRotateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PictRotateButton.Enabled = false;
             PictRotateButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            PictRotateButton.Location = new Point(880, 84);
-            PictRotateButton.Margin = new Padding(3, 2, 3, 2);
+            PictRotateButton.Location = new Point(1002, 112);
             PictRotateButton.Name = "PictRotateButton";
-            PictRotateButton.Size = new Size(169, 36);
+            PictRotateButton.Size = new Size(217, 48);
             PictRotateButton.TabIndex = 2;
             PictRotateButton.Text = "画像回転";
             PictRotateButton.UseVisualStyleBackColor = true;
@@ -228,9 +220,9 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1060, 517);
+            ClientSize = new Size(1232, 689);
             Controls.Add(PictRotateButton);
             Controls.Add(DoingLabel);
             Controls.Add(WAVEBbutton);
@@ -245,7 +237,6 @@
             Controls.Add(TopMenuStrip);
             Icon = (Icon)resources.GetObject("$this.Icon");
             MainMenuStrip = TopMenuStrip;
-            Margin = new Padding(3, 2, 3, 2);
             Name = "Form1";
             Text = "Form1";
             FormClosed += Form1_FormClosed;

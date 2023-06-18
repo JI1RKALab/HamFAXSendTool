@@ -92,7 +92,7 @@
             SettingButton.Name = "SettingButton";
             SettingButton.Size = new Size(193, 48);
             SettingButton.TabIndex = 12;
-            SettingButton.Text = "設定";
+            SettingButton.Text = "設定内容登録";
             SettingButton.UseVisualStyleBackColor = true;
             SettingButton.Click += SettingButton_Click;
             // 

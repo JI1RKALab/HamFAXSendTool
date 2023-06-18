@@ -1,5 +1,6 @@
 using NAudio.Wave;
 using net.sictransit.wefax;
+using SixLabors.ImageSharp.Metadata.Profiles.Iptc;
 using System.Diagnostics;
 using System.Reflection;
 using Image = System.Drawing.Image;
@@ -339,8 +340,8 @@ namespace HamFAXSendTool
             SendButton.Enabled = false;
             EndButton.Enabled = false;
 
-            // 協動係数取得
-            bool IOC288Flag = IOCComboBox.SelectedItem.ToString().Contains("288");
+            // ICOValue
+            int IOCValue = ICOConboBoxGetSelectItem();
 
             // task
             Task.Run(() =>
@@ -358,7 +359,7 @@ namespace HamFAXSendTool
                 try
                 {
                     // 選択
-                    string FAXSignalPath = FAXSignalGenerator(IOC288Flag);
+                    string FAXSignalPath = FAXSignalGenerator(IOCValue);
 
                     // 再生部分の生成
                     MainOutputStream = new WaveFileReader(FAXSignalPath);
@@ -685,6 +686,30 @@ namespace HamFAXSendTool
         }
 
         /// <summary>
+        /// 協動係数選択
+        /// </summary>
+        /// <returns></returns>
+        private int ICOConboBoxGetSelectItem()
+        {
+            // 選択
+            switch (IOCComboBox.SelectedItem.ToString())
+            {
+                // HAM1
+                case "288(アマチュア無線モード1)":
+                    return 288;
+
+                // HAM2
+                case "288/576(アマチュア無線モード2)":
+                    return 288576;
+
+                // OK
+                case "576(業務局モード)":
+                default:
+                    return 576;
+            }
+        }
+
+        /// <summary>
         /// 緊急停止ボタン
         /// </summary>
         /// <param name="sender"></param>
@@ -704,7 +729,7 @@ namespace HamFAXSendTool
             });
 
             // 選択
-            string FAXSignalPath = FAXSignalGenerator(IOCComboBox.SelectedItem.ToString().Contains("288"));
+            string FAXSignalPath = FAXSignalGenerator(ICOConboBoxGetSelectItem());
 
             // 保存ダイヤログ
             //SaveFileDialogクラスのインスタンスを作成
@@ -837,7 +862,7 @@ namespace HamFAXSendTool
         /// </summary>
         /// <param name="ImagePath"></param>
         /// <returns></returns>
-        private string FAXSignalGenerator(bool Is288Flag)
+        private string FAXSignalGenerator(int IOCValue)
         {
             // PictBoxに出ている画像を保存する
             string SendImagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "SendImage.png");
@@ -850,9 +875,6 @@ namespace HamFAXSendTool
 
             // WavePath
             string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav");
-
-            // IOC
-            int IOCValue = Is288Flag ? 288 : 576;
 
             // FAX信号生成に投げ込む
             FaxMachine HamFaxMachine = new(16000, 1900, 400, IOCValue);

@@ -24,9 +24,9 @@ namespace net.sictransit.wefax
             this.sampleRate = sampleRate;
             this.carrier = carrier;
             this.deviation = deviation;
-            this.is288Flag = (ioc == 288) ? true : false;
+            this.is288Flag = (ioc == 288);
 
-            resolution = (int)(Math.PI * ioc);
+            resolution = (int)(Math.PI * (ioc == 288576 ? 288 : ioc));
             whiteBar = Enumerable.Repeat(1f, resolution / 20).ToArray();
         }
 
