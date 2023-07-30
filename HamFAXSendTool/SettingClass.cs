@@ -28,9 +28,14 @@
         public static string UserCallSign = string.Empty;
 
         /// <summary>
+        /// IOC設定
+        /// </summary>
+        public static int IOCSettingValue = new int();
+
+        /// <summary>
         /// 読み取り
         /// </summary>
-        public void SettingFileLoad() 
+        public void SettingFileLoad()
         {
             // 読み出し
             Properties.Settings.Default.Reload();
@@ -41,6 +46,7 @@
             ComSpeed = Properties.Settings.Default.COMSpeedSetting;
             SoundCard = Properties.Settings.Default.SoundCardSetting;
             UserCallSign = Properties.Settings.Default.UserCallSignSetting;
+            IOCSettingValue = Properties.Settings.Default.IOCSettingValue;
         }
 
         /// <summary>
@@ -81,6 +87,36 @@
             Properties.Settings.Default.UserCallSignSetting = UserCallSign;
 
             // 保存
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// IOC設定
+        /// </summary>
+        /// <param name="IOCValueSave"></param>
+        public void IOCValueSave(string IOCValueSave)
+        {
+            // 選択
+            switch (IOCValueSave)
+            {
+                // HAM1
+                case "288(アマチュア無線モード1)":
+                    Properties.Settings.Default.IOCSettingValue = 288;
+                    break;
+
+                // HAM2
+                case "288/576(アマチュア無線モード2)":
+                    Properties.Settings.Default.IOCSettingValue = 288576;
+                    break;
+
+                // OK
+                case "576(業務局モード)":
+                default:
+                    Properties.Settings.Default.IOCSettingValue = 576;
+                    break;
+            }
+
+            // SAVE
             Properties.Settings.Default.Save();
         }
     }

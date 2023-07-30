@@ -45,6 +45,7 @@
             DispOnLineHelpToolStripMenuItem = new ToolStripMenuItem();
             DoingLabel = new Label();
             PictRotateButton = new Button();
+            SendLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)SendPictureBox).BeginInit();
             TopMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -52,9 +53,9 @@
             // SendPictureBox
             // 
             SendPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            SendPictureBox.Location = new Point(11, 37);
+            SendPictureBox.Location = new Point(11, 88);
             SendPictureBox.Name = "SendPictureBox";
-            SendPictureBox.Size = new Size(973, 628);
+            SendPictureBox.Size = new Size(973, 577);
             SendPictureBox.TabIndex = 0;
             SendPictureBox.TabStop = false;
             // 
@@ -65,7 +66,7 @@
             PictSelectButton.Location = new Point(1002, 37);
             PictSelectButton.Name = "PictSelectButton";
             PictSelectButton.Size = new Size(217, 48);
-            PictSelectButton.TabIndex = 1;
+            PictSelectButton.TabIndex = 2;
             PictSelectButton.Text = "画像選択";
             PictSelectButton.UseVisualStyleBackColor = true;
             PictSelectButton.Click += PictSelectButton_Click;
@@ -78,7 +79,7 @@
             SendButton.Location = new Point(1002, 361);
             SendButton.Name = "SendButton";
             SendButton.Size = new Size(217, 48);
-            SendButton.TabIndex = 6;
+            SendButton.TabIndex = 7;
             SendButton.Text = "送信";
             SendButton.UseVisualStyleBackColor = true;
             SendButton.Click += SendButton_Click;
@@ -92,7 +93,7 @@
             StopButton.Location = new Point(1002, 537);
             StopButton.Name = "StopButton";
             StopButton.Size = new Size(217, 48);
-            StopButton.TabIndex = 9;
+            StopButton.TabIndex = 10;
             StopButton.Text = "停止";
             StopButton.UseVisualStyleBackColor = true;
             StopButton.Click += StopButton_Click;
@@ -104,7 +105,7 @@
             EndButton.Location = new Point(1002, 617);
             EndButton.Name = "EndButton";
             EndButton.Size = new Size(217, 48);
-            EndButton.TabIndex = 10;
+            EndButton.TabIndex = 11;
             EndButton.Text = "終了";
             EndButton.UseVisualStyleBackColor = true;
             EndButton.Click += EndButton_Click;
@@ -117,7 +118,7 @@
             StatusTitleLable.Location = new Point(1002, 436);
             StatusTitleLable.Name = "StatusTitleLable";
             StatusTitleLable.Size = new Size(92, 28);
-            StatusTitleLable.TabIndex = 7;
+            StatusTitleLable.TabIndex = 8;
             StatusTitleLable.Text = "スタータス:";
             // 
             // IOCComboBox
@@ -129,7 +130,7 @@
             IOCComboBox.Location = new Point(1002, 225);
             IOCComboBox.Name = "IOCComboBox";
             IOCComboBox.Size = new Size(217, 28);
-            IOCComboBox.TabIndex = 4;
+            IOCComboBox.TabIndex = 5;
             IOCComboBox.SelectedIndexChanged += IOCComboBox_SelectedIndexChanged;
             // 
             // IOCTitleLable
@@ -140,7 +141,7 @@
             IOCTitleLable.Location = new Point(1002, 183);
             IOCTitleLable.Name = "IOCTitleLable";
             IOCTitleLable.Size = new Size(97, 28);
-            IOCTitleLable.TabIndex = 3;
+            IOCTitleLable.TabIndex = 4;
             IOCTitleLable.Text = "協動係数:";
             // 
             // WAVEBbutton
@@ -151,7 +152,7 @@
             WAVEBbutton.Location = new Point(1002, 285);
             WAVEBbutton.Name = "WAVEBbutton";
             WAVEBbutton.Size = new Size(217, 48);
-            WAVEBbutton.TabIndex = 5;
+            WAVEBbutton.TabIndex = 6;
             WAVEBbutton.Text = "FAX信号保存";
             WAVEBbutton.UseVisualStyleBackColor = true;
             WAVEBbutton.Click += WAVEBbutton_Click;
@@ -203,7 +204,7 @@
             DoingLabel.Location = new Point(1002, 481);
             DoingLabel.Name = "DoingLabel";
             DoingLabel.Size = new Size(0, 28);
-            DoingLabel.TabIndex = 8;
+            DoingLabel.TabIndex = 9;
             // 
             // PictRotateButton
             // 
@@ -213,16 +214,28 @@
             PictRotateButton.Location = new Point(1002, 112);
             PictRotateButton.Name = "PictRotateButton";
             PictRotateButton.Size = new Size(217, 48);
-            PictRotateButton.TabIndex = 2;
+            PictRotateButton.TabIndex = 3;
             PictRotateButton.Text = "画像回転";
             PictRotateButton.UseVisualStyleBackColor = true;
             PictRotateButton.Click += PictRotateButton_Click;
+            // 
+            // SendLabel
+            // 
+            SendLabel.AutoSize = true;
+            SendLabel.Font = new Font("Yu Gothic UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
+            SendLabel.Location = new Point(14, 40);
+            SendLabel.Name = "SendLabel";
+            SendLabel.Size = new Size(190, 46);
+            SendLabel.TabIndex = 1;
+            SendLabel.Text = "←送信方向";
+            SendLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1232, 689);
+            Controls.Add(SendLabel);
             Controls.Add(PictRotateButton);
             Controls.Add(DoingLabel);
             Controls.Add(WAVEBbutton);
@@ -266,5 +279,6 @@
         private Label DoingLabel;
         private ToolStripMenuItem DispOnLineHelpToolStripMenuItem;
         private Button PictRotateButton;
+        private Label SendLabel;
     }
 }

@@ -12,7 +12,7 @@ namespace net.sictransit.wefax
         /// </summary>
         /// <param name="ImageFileName"></param>
         /// <returns></returns>
-        public string MakeImage(string ImageFileName, string ExeDirPath, int RotateValue)
+        public string MakeImage(string ImageFileName, string ExeDirPath)
         {
             // ファイル名
             string TempFilePath = System.IO.Path.Combine(ExeDirPath, "TempImage.png");
@@ -20,32 +20,8 @@ namespace net.sictransit.wefax
             // using
             using (Image ImageData = Image.Load<Rgb24>(ImageFileName))
             {
-                // 判定
-                if (RotateValue == 0)
-                {
-                    // 縦倒し
-                    ImageData.Mutate(x => x.Rotate(RotateMode.Rotate90));
-                }
-                else if (RotateValue == 90)
-                {
-                    // 縦倒し
-                    ImageData.Mutate(x => x.Rotate(RotateMode.Rotate180));
-                }
-                else if (RotateValue == 180)
-                {
-                    // 縦倒し
-                    ImageData.Mutate(x => x.Rotate(RotateMode.None));
-                }
-                else if (RotateValue == 270)
-                {
-                    // 縦倒し
-                    ImageData.Mutate(x => x.Rotate(RotateMode.Rotate270));
-                }
-                else
-                {
-                    // 縦長の場合はそれでOK
-                    Console.WriteLine("OK");
-                }
+                // 回転
+                ImageData.Mutate(x => x.Rotate(RotateMode.Rotate90));
 
                 // using
                 using (Image BrackData = new Image<Rgba32>((int)Math.Round(ImageData.Width * 1.045), ImageData.Height))

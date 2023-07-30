@@ -82,5 +82,17 @@ namespace HamFAXSendTool.Properties {
                 this["UserCallSignSetting"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int IOCSettingValue {
+            get {
+                return ((int)(this["IOCSettingValue"]));
+            }
+            set {
+                this["IOCSettingValue"] = value;
+            }
+        }
     }
 }

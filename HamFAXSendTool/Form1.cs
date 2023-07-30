@@ -1,6 +1,5 @@
 using NAudio.Wave;
 using net.sictransit.wefax;
-using SixLabors.ImageSharp.Metadata.Profiles.Iptc;
 using System.Diagnostics;
 using System.Reflection;
 using Image = System.Drawing.Image;
@@ -91,6 +90,34 @@ namespace HamFAXSendTool
             {
                 // 設定済み
                 Text = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
+            }
+
+            // IOC設定
+            if (SettingClass.IOCSettingValue == new int())
+            {
+                // -1
+                IOCComboBox.SelectedIndex = -1;
+            }
+            else
+            {
+                // 選択
+                switch (SettingClass.IOCSettingValue)
+                {
+                    //IOC
+                    case 288:
+                        //1
+                        IOCComboBox.SelectedIndex = 0;
+                        break;
+                    case 288576:
+                        //2
+                        IOCComboBox.SelectedIndex = 1;
+                        break;
+                    case 576:
+                    default:
+                        //3
+                        IOCComboBox.SelectedIndex = 2;
+                        break;
+                }
             }
         }
 
@@ -546,7 +573,6 @@ namespace HamFAXSendTool
                     // 無効化
                     WAVEBbutton.Invoke(new Action(() => WAVEBbutton.Enabled = false));
                     SendButton.Invoke(new Action(() => SendButton.Enabled = false));
-                    IOCComboBox.Invoke(new Action(() => IOCComboBox.SelectedIndex = -1));
                 }
 
                 // 共通
@@ -854,6 +880,9 @@ namespace HamFAXSendTool
                     WAVEBbutton.Enabled = true;
                     SendButton.Enabled = true;
                 }
+
+                // 保存関数へ
+                new SettingClass().IOCValueSave(((ComboBox)sender).SelectedText);
             }
         }
 
@@ -871,7 +900,7 @@ namespace HamFAXSendTool
             SendPictureBox.Image.Save(SendImagePath, System.Drawing.Imaging.ImageFormat.Png);
 
             // ImageFilePath
-            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), RotateValue);
+            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
 
             // WavePath
             string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav");

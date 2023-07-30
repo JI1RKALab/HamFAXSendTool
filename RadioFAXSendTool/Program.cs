@@ -25,7 +25,7 @@ namespace net.sictransit.wefax
                       else
                       {
                           // ここで画信号を操作する
-                          string FileImage = new ImageMake().MakeImage(o.SourceImage, Path.GetDirectoryName(o.SourceImage), 0);
+                          string FileImage = new ImageMake().MakeImage(o.SourceImage, Path.GetDirectoryName(o.SourceImage));
 
                           // 画信号ファイルを生成
                           string WaveFileName = Path.Combine(Path.GetDirectoryName(o.SourceImage), $"{Path.GetFileNameWithoutExtension(o.SourceImage)}.wav");
