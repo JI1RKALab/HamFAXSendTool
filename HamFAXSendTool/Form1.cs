@@ -1,3 +1,4 @@
+using HamFAXSendTool.Properties;
 using NAudio.Wave;
 using net.sictransit.wefax;
 using System.Diagnostics;
@@ -44,12 +45,38 @@ namespace HamFAXSendTool
         string ImagePath = string.Empty;
 
         /// <summary>
+        /// 展示会モード
+        /// </summary>
+        bool DispMode = new bool();
+
+        /// <summary>
         /// イニシャライズ
         /// </summary>
-        public Form1()
+        public Form1(string[] args)
         {
             // OK
             InitializeComponent();
+
+            // 判定
+            if (args.Count() > 0) 
+            {
+                // 判定
+                if (args.FirstOrDefault() == "TESTMODE") 
+                { 
+                    // OK
+                    DispMode = true; 
+                } 
+                else
+                { 
+                    // NG
+                    DispMode = false;
+                }
+            }
+            else 
+            {
+                // NG
+                DispMode = false;
+            }
         }
 
         /// <summary>
@@ -92,31 +119,61 @@ namespace HamFAXSendTool
                 Text = SoftName + "(コールサイン:" + SettingClass.UserCallSign + ")";
             }
 
-            // IOC設定
-            if (SettingClass.IOCSettingValue == new int())
+            // こっから展示会モード
+            if (DispMode)
             {
-                // -1
-                IOCComboBox.SelectedIndex = -1;
+                // 展示会モードの時は既存の画面を消す
+                StatusTitleLable.Visible = false;
+                DoingLabel.Visible = false; 
+                SendLabel.Visible = false;
+                IOCComboBox.Visible = false;
+                IOCTitleLable.Visible = false;
+                IOCTitleLable.Visible = false;
+                PictSelectButton.Visible = false;
+                PictRotateButton.Visible = false;
+                WAVEBbutton.Visible = false;
+                SendButton.Visible = false;
+                EndButton.Visible = false;
+                StopButton.Visible = false;
+
+                // テストモードを出す
+                this.Controls.Add(new UserControl1
+                {
+                    // ロケ指定
+                    Location = new Point(0, 30)
+                });
+
+                // ヘッダも書き換える
+                this.Text = SoftName + "(展示会モード)";
             }
             else
             {
-                // 選択
-                switch (SettingClass.IOCSettingValue)
+                // IOC設定
+                if (SettingClass.IOCSettingValue == new int())
                 {
-                    //IOC
-                    case 288:
-                        //1
-                        IOCComboBox.SelectedIndex = 0;
-                        break;
-                    case 288576:
-                        //2
-                        IOCComboBox.SelectedIndex = 1;
-                        break;
-                    case 576:
-                    default:
-                        //3
-                        IOCComboBox.SelectedIndex = 2;
-                        break;
+                    // -1
+                    IOCComboBox.SelectedIndex = -1;
+                }
+                else
+                {
+                    // 選択
+                    switch (SettingClass.IOCSettingValue)
+                    {
+                        //IOC
+                        case 288:
+                            //1
+                            IOCComboBox.SelectedIndex = 0;
+                            break;
+                        case 288576:
+                            //2
+                            IOCComboBox.SelectedIndex = 1;
+                            break;
+                        case 576:
+                        default:
+                            //3
+                            IOCComboBox.SelectedIndex = 2;
+                            break;
+                    }
                 }
             }
         }
@@ -632,26 +689,8 @@ namespace HamFAXSendTool
         /// </summary>
         private void DeleteFAXFile()
         {
-            // 判定
-            if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
-            {
-                // OK
-                Console.WriteLine("OK");
-            }
-            else
-            {
-                // 消す
-                if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
-                {
-                    // OK
-                    File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav"));
-                }
-                else
-                {
-                    // OK
-                    Console.Write("OK");
-                }
-            }
+            // 共通クラスに飛ばす
+            new CommonProcessClass().DeleteFAXFile();
         }
 
         /// <summary>
@@ -660,30 +699,8 @@ namespace HamFAXSendTool
         /// <returns></returns>
         private int PlaySoundCardIndexNoSelect()
         {
-            // INDEX番号を入れておく
-            int PlaySoundCardIndexNo = new();
-
-            // サウンドカード取得
-            List<DirectSoundDeviceInfo> Capabilities = DirectSoundOut.Devices.ToList();
-
-            // ループ
-            for (int i = 0; i < Capabilities.Count(); i++)
-            {
-                // Add
-                if (Capabilities[i].Description == SettingClass.SoundCard)
-                {
-                    // OK
-                    PlaySoundCardIndexNo = i;
-                }
-                else
-                {
-                    // Skip
-                    continue;
-                }
-            }
-
-            // 戻し
-            return PlaySoundCardIndexNo - 1;
+            // 共通クラスへ
+            return new CommonProcessClass().PlaySoundCardIndexNoSelect();
         }
 
         /// <summary>
