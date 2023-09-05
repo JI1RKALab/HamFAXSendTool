@@ -1,4 +1,5 @@
 ﻿using NAudio.Wave;
+using net.sictransit.wefax;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HamFAXSendTool.Properties
+namespace HamFAXSendTool
 {
     internal class CommonProcessClass
     {
@@ -67,6 +68,22 @@ namespace HamFAXSendTool.Properties
 
             // 戻し
             return PlaySoundCardIndexNo - 1;
+        }
+
+        /// <summary>
+        /// FAX停止信号生成
+        /// </summary>
+        /// <returns></returns>
+        public string FAXStopSignalGenerator()
+        {
+            // ファイル生成
+            string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXStopSignal.wav");
+
+            // 停止信号生成
+            new FaxMachine().FAXStopSignalGenerator(OutputFAXSignalPath);
+
+            // 戻し
+            return OutputFAXSignalPath;
         }
     }
 }

@@ -943,14 +943,8 @@ namespace HamFAXSendTool
         /// <returns></returns>
         private string FAXStopSignalGenerator()
         {
-            // ファイル生成
-            string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXStopSignal.wav");
-
-            // 停止信号生成
-            new FaxMachine().FAXStopSignalGenerator(OutputFAXSignalPath);
-
             // 戻し
-            return OutputFAXSignalPath;
+            return new CommonProcessClass().FAXStopSignalGenerator();
         }
 
         /// <summary>

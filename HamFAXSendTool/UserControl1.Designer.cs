@@ -171,6 +171,7 @@
             PictCheckedListBox.Name = "PictCheckedListBox";
             PictCheckedListBox.Size = new Size(190, 418);
             PictCheckedListBox.TabIndex = 1;
+            PictCheckedListBox.ItemCheck += PictCheckedListBox_ItemCheck;
             // 
             // UserControl1
             // 
