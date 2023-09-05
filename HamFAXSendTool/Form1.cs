@@ -135,6 +135,7 @@ namespace HamFAXSendTool
                 SendButton.Visible = false;
                 EndButton.Visible = false;
                 StopButton.Visible = false;
+                SendPictureBox.Visible = false;
 
                 // テストモードを出す
                 this.Controls.Add(new UserControl1

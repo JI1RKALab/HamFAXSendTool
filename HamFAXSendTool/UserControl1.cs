@@ -191,6 +191,11 @@ namespace HamFAXSendTool
 
         }
 
+        /// <summary>
+        /// 停止処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StopButton_Click(object sender, EventArgs e)
         {
             // フラグ
@@ -261,7 +266,6 @@ namespace HamFAXSendTool
                 new SettingClass().IOCValueSave(((ComboBox)sender).SelectedText);
             }
         }
-
 
         /// <summary>
         /// ファイル消し

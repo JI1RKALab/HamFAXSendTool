@@ -10,6 +10,9 @@ namespace HamFAXSendTool.Properties
 {
     internal class CommonProcessClass
     {
+        /// <summary>
+        /// 削除
+        /// </summary>
         public void DeleteFAXFile()
         {
             // 判定
@@ -34,6 +37,10 @@ namespace HamFAXSendTool.Properties
             }
         }
 
+        /// <summary>
+        /// カード選択
+        /// </summary>
+        /// <returns></returns>
         public int PlaySoundCardIndexNoSelect()
         {
             // INDEX番号を入れておく
