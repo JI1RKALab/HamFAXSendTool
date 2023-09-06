@@ -451,10 +451,13 @@ namespace HamFAXSendTool
                     WaveChannel32 VolumeStream = new(MainOutputStream);
 
                     // インスタンス生成
-                    FAXPlayer = new();
+                    FAXPlayer = new()
+                    {
+                        // 選択
+                        DeviceNumber = PlaySoundCardIndexNoSelect()
+                    };
 
                     // 初期化
-                    FAXPlayer.DeviceNumber = PlaySoundCardIndexNoSelect();
                     FAXPlayer.Init(VolumeStream);
 
                     // COM設定?
