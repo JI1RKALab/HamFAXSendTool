@@ -624,9 +624,18 @@ namespace HamFAXSendTool
             ForceStop = true;
 
             // OK
-            _ = Task.Run(() =>
+            Task.Run(() =>
             {
-                if (FAXPlayer is null) { }
+                // 待機
+                bool WaitFlag = new();
+
+                // OK
+                if (FAXPlayer is null)
+                {
+                    // OK
+                    WaitFlag = true;
+                    Console.WriteLine("OK");
+                }
                 else
                 {
                     // 強制停止
@@ -657,6 +666,23 @@ namespace HamFAXSendTool
 
                     // どちらにせよ、ファイルは消す
                     DeleteFAXFile();
+
+                    // 待機
+                    while (FAXPlayer.PlaybackState == PlaybackState.Playing)
+                    {
+                        // OK
+                        Console.WriteLine("OK");
+                    }
+
+                    // OK
+                    WaitFlag = true;
+                }
+
+                // Wait
+                while (!WaitFlag)
+                {
+                    // OK
+                    Console.WriteLine("OK");
                 }
 
                 // 有効化
