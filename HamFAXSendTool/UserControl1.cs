@@ -83,7 +83,6 @@ namespace HamFAXSendTool
                         // 1
                         RPMSelectComboBox.SelectedIndex = 3;
                         break;
-
                 }
             }
 
