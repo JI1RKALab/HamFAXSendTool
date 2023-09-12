@@ -113,6 +113,9 @@ namespace HamFAXSendTool
                         break;
                 }
             }
+
+            // OK
+            SendButton.Enabled = false;
         }
 
         /// <summary>
