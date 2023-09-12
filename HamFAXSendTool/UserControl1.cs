@@ -56,6 +56,37 @@ namespace HamFAXSendTool
             // 停止信号作成
             FAXStopSignalPath = FAXStopSignalGenerator();
 
+            // RPM設定
+            if (SettingClass.RPMSettingValue == new int())
+            {
+                // -1
+                RPMSelectComboBox.SelectedIndex = -1;
+            }
+            else
+            {  // 選択
+                switch (SettingClass.RPMSettingValue)
+                {
+                    // 選択
+                    case 60:
+                        // 1
+                        RPMSelectComboBox.SelectedIndex = 0;
+                        break;
+                    case 120:
+                        // 1
+                        RPMSelectComboBox.SelectedIndex = 1;
+                        break;
+                    case 240:
+                        // 1
+                        RPMSelectComboBox.SelectedIndex = 2;
+                        break;
+                    case 360:
+                        // 1
+                        RPMSelectComboBox.SelectedIndex = 3;
+                        break;
+
+                }
+            }
+
             // IOC設定
             if (SettingClass.IOCSettingValue == new int())
             {
