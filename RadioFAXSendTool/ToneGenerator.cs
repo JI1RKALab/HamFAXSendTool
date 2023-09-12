@@ -25,7 +25,6 @@ namespace net.sictransit.wefax
             this.carrier = carrier;
             this.deviation = deviation;
 
-
             switch (rpm) 
             {
                 case 60:
@@ -42,10 +41,7 @@ namespace net.sictransit.wefax
                     break;
             }
 
-
-
             int baseSampleRate = sampleRate / 2;
-
 
             if (120 > rpm)
             {
@@ -57,11 +53,6 @@ namespace net.sictransit.wefax
                 lineLength = baseSampleRate/rpmSetting;
                 isOver120 = true;
             }
-
-
-
-
-
 
             dt = Math.PI * 2 / sampleRate;
         }
