@@ -74,13 +74,13 @@ namespace HamFAXSendTool
         /// FAX停止信号生成
         /// </summary>
         /// <returns></returns>
-        public string FAXStopSignalGenerator()
+        public string FAXStopSignalGenerator(int RPMValue)
         {
             // ファイル生成
             string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXStopSignal.wav");
 
             // 停止信号生成
-            new FaxMachine().FAXStopSignalGenerator(OutputFAXSignalPath);
+            new FaxMachine().FAXStopSignalGenerator(OutputFAXSignalPath, RPMValue);
 
             // 戻し
             return OutputFAXSignalPath;

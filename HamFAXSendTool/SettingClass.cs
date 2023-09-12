@@ -28,9 +28,14 @@
         public static string UserCallSign = string.Empty;
 
         /// <summary>
+        /// 回転数設定
+        /// </summary>
+        public static int RPMSettingValue = new();
+
+        /// <summary>
         /// IOC設定
         /// </summary>
-        public static int IOCSettingValue = new int();
+        public static int IOCSettingValue = new();
 
         /// <summary>
         /// 読み取り
@@ -47,6 +52,7 @@
             SoundCard = Properties.Settings.Default.SoundCardSetting;
             UserCallSign = Properties.Settings.Default.UserCallSignSetting;
             IOCSettingValue = Properties.Settings.Default.IOCSettingValue;
+            RPMSettingValue = Properties.Settings.Default.RPMSettingValue;
         }
 
         /// <summary>
@@ -87,6 +93,19 @@
             Properties.Settings.Default.UserCallSignSetting = UserCallSign;
 
             // 保存
+            Properties.Settings.Default.Save();
+        }
+
+        /// <summary>
+        /// RPM設定
+        /// </summary>
+        /// <param name="RPMValueSave"></param>
+        public void RPMValueSave(string RPMValueSave)
+        {
+            // 選択
+            Properties.Settings.Default.RPMSettingValue = int.Parse(RPMValueSave);
+
+            // SAVE
             Properties.Settings.Default.Save();
         }
 

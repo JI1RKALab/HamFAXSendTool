@@ -46,6 +46,8 @@
             DoingLabel = new Label();
             PictRotateButton = new Button();
             SendLabel = new Label();
+            RPMSelectLabel = new Label();
+            RPMSelectComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)SendPictureBox).BeginInit();
             TopMenuStrip.SuspendLayout();
             SuspendLayout();
@@ -76,10 +78,10 @@
             SendButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SendButton.Enabled = false;
             SendButton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            SendButton.Location = new Point(1002, 361);
+            SendButton.Location = new Point(1002, 384);
             SendButton.Name = "SendButton";
             SendButton.Size = new Size(217, 48);
-            SendButton.TabIndex = 7;
+            SendButton.TabIndex = 9;
             SendButton.Text = "送信";
             SendButton.UseVisualStyleBackColor = true;
             SendButton.Click += SendButton_Click;
@@ -90,10 +92,10 @@
             StopButton.AutoSize = true;
             StopButton.Enabled = false;
             StopButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            StopButton.Location = new Point(1002, 537);
+            StopButton.Location = new Point(1002, 559);
             StopButton.Name = "StopButton";
             StopButton.Size = new Size(217, 48);
-            StopButton.TabIndex = 10;
+            StopButton.TabIndex = 12;
             StopButton.Text = "停止";
             StopButton.UseVisualStyleBackColor = true;
             StopButton.Click += StopButton_Click;
@@ -105,7 +107,7 @@
             EndButton.Location = new Point(1002, 617);
             EndButton.Name = "EndButton";
             EndButton.Size = new Size(217, 48);
-            EndButton.TabIndex = 11;
+            EndButton.TabIndex = 13;
             EndButton.Text = "終了";
             EndButton.UseVisualStyleBackColor = true;
             EndButton.Click += EndButton_Click;
@@ -115,10 +117,10 @@
             StatusTitleLable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             StatusTitleLable.AutoSize = true;
             StatusTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            StatusTitleLable.Location = new Point(1002, 436);
+            StatusTitleLable.Location = new Point(1002, 444);
             StatusTitleLable.Name = "StatusTitleLable";
             StatusTitleLable.Size = new Size(92, 28);
-            StatusTitleLable.TabIndex = 8;
+            StatusTitleLable.TabIndex = 10;
             StatusTitleLable.Text = "スタータス:";
             // 
             // IOCComboBox
@@ -127,7 +129,7 @@
             IOCComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             IOCComboBox.FormattingEnabled = true;
             IOCComboBox.Items.AddRange(new object[] { "288(アマチュア無線モード1)", "288/576(アマチュア無線モード2)", "576(業務局モード)" });
-            IOCComboBox.Location = new Point(1002, 225);
+            IOCComboBox.Location = new Point(1002, 282);
             IOCComboBox.Name = "IOCComboBox";
             IOCComboBox.Size = new Size(217, 28);
             IOCComboBox.TabIndex = 5;
@@ -138,7 +140,7 @@
             IOCTitleLable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             IOCTitleLable.AutoSize = true;
             IOCTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            IOCTitleLable.Location = new Point(1002, 183);
+            IOCTitleLable.Location = new Point(1002, 240);
             IOCTitleLable.Name = "IOCTitleLable";
             IOCTitleLable.Size = new Size(97, 28);
             IOCTitleLable.TabIndex = 4;
@@ -149,10 +151,10 @@
             WAVEBbutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             WAVEBbutton.Enabled = false;
             WAVEBbutton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            WAVEBbutton.Location = new Point(1002, 285);
+            WAVEBbutton.Location = new Point(1002, 326);
             WAVEBbutton.Name = "WAVEBbutton";
             WAVEBbutton.Size = new Size(217, 48);
-            WAVEBbutton.TabIndex = 6;
+            WAVEBbutton.TabIndex = 8;
             WAVEBbutton.Text = "FAX信号保存";
             WAVEBbutton.UseVisualStyleBackColor = true;
             WAVEBbutton.Click += WAVEBbutton_Click;
@@ -201,17 +203,17 @@
             DoingLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DoingLabel.AutoSize = true;
             DoingLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            DoingLabel.Location = new Point(1002, 481);
+            DoingLabel.Location = new Point(1002, 489);
             DoingLabel.Name = "DoingLabel";
             DoingLabel.Size = new Size(0, 28);
-            DoingLabel.TabIndex = 9;
+            DoingLabel.TabIndex = 11;
             // 
             // PictRotateButton
             // 
             PictRotateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PictRotateButton.Enabled = false;
             PictRotateButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
-            PictRotateButton.Location = new Point(1002, 112);
+            PictRotateButton.Location = new Point(1002, 95);
             PictRotateButton.Name = "PictRotateButton";
             PictRotateButton.Size = new Size(217, 48);
             PictRotateButton.TabIndex = 3;
@@ -230,11 +232,36 @@
             SendLabel.Text = "←送信方向";
             SendLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // RPMSelectLabel
+            // 
+            RPMSelectLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            RPMSelectLabel.AutoSize = true;
+            RPMSelectLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RPMSelectLabel.Location = new Point(1002, 155);
+            RPMSelectLabel.Name = "RPMSelectLabel";
+            RPMSelectLabel.Size = new Size(77, 28);
+            RPMSelectLabel.TabIndex = 6;
+            RPMSelectLabel.Text = "回転数:";
+            // 
+            // RPMSelectComboBox
+            // 
+            RPMSelectComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            RPMSelectComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            RPMSelectComboBox.FormattingEnabled = true;
+            RPMSelectComboBox.Items.AddRange(new object[] { "60回転", "120回転", "240回転", "360回転" });
+            RPMSelectComboBox.Location = new Point(1002, 197);
+            RPMSelectComboBox.Name = "RPMSelectComboBox";
+            RPMSelectComboBox.Size = new Size(217, 28);
+            RPMSelectComboBox.TabIndex = 7;
+            RPMSelectComboBox.SelectedIndexChanged += RPMSelectComboBox_SelectedIndexChanged;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1232, 689);
+            Controls.Add(RPMSelectLabel);
+            Controls.Add(RPMSelectComboBox);
             Controls.Add(SendLabel);
             Controls.Add(PictRotateButton);
             Controls.Add(DoingLabel);
@@ -280,5 +307,7 @@
         private ToolStripMenuItem DispOnLineHelpToolStripMenuItem;
         private Button PictRotateButton;
         private Label SendLabel;
+        private Label RPMSelectLabel;
+        private ComboBox RPMSelectComboBox;
     }
 }

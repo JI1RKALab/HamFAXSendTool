@@ -85,6 +85,11 @@ namespace HamFAXSendTool
             }
         }
 
+        /// <summary>
+        /// 画像選択
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PictSelectButton_Click(object sender, EventArgs e)
         {
             //FolderBrowserDialogクラスのインスタンスを作成
@@ -135,7 +140,7 @@ namespace HamFAXSendTool
                 SetPictBox(PictCheckedListBox.SelectedItem.ToString());
 
                 // コンボが-1でない場合はボタン有効化
-                if (IOCComboBox.SelectedIndex == -1)
+                if (IOCComboBox.SelectedIndex == -1 || RPMSelectComboBox.SelectedIndex == -1)
                 {
                     // NG
                     return;
@@ -314,8 +319,11 @@ namespace HamFAXSendTool
             SendButton.Enabled = false;
             EndButton.Enabled = false;
 
+            // RPMValue
+            int RPMVlaue = RPMConboBoxGetSelectItem();
+
             // ICOValue
-            int IOCValue = ICOConboBoxGetSelectItem();
+            int IOCValue = IOCConboBoxGetSelectItem();
 
             // task
             _ = Task.Run(() =>
@@ -349,7 +357,7 @@ namespace HamFAXSendTool
                             try
                             {
                                 // 選択
-                                string FAXSignalPath = FAXSignalGenerator(IOCValue);
+                                string FAXSignalPath = FAXSignalGenerator(RPMVlaue, IOCValue);
 
                                 // 再生部分の生成
                                 MainOutputStream = new WaveFileReader(FAXSignalPath);
@@ -559,9 +567,10 @@ namespace HamFAXSendTool
         /// <summary>
         /// FAX生成
         /// </summary>
-        /// <param name="ImagePath"></param>
+        /// <param name="RPMValue"></param>
+        /// <param name="IOCValue"></param>
         /// <returns></returns>
-        private string FAXSignalGenerator(int IOCValue)
+        private string FAXSignalGenerator(int RPMValue, int IOCValue)
         {
             // PictBoxに出ている画像を保存する
             string SendImagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "SendImage.png");
@@ -579,7 +588,7 @@ namespace HamFAXSendTool
             FaxMachine HamFaxMachine = new(16000, 1900, 400, IOCValue);
 
             // 信号生成
-            HamFaxMachine.Fax(TempImagePath, OutputFAXSignalPath, new BinaryCodedHeader(null, null, null, null, null, null));
+            HamFaxMachine.Fax(TempImagePath, OutputFAXSignalPath, RPMValue, new BinaryCodedHeader(null, null, null, null, null, null));
 
             // テンポラリファイル消す
             File.Delete(TempImagePath);
@@ -593,7 +602,7 @@ namespace HamFAXSendTool
         /// 協動係数選択
         /// </summary>
         /// <returns></returns>
-        private int ICOConboBoxGetSelectItem()
+        private int IOCConboBoxGetSelectItem()
         {
             // 選択
             switch (IOCComboBox.SelectedItem.ToString())
@@ -610,6 +619,25 @@ namespace HamFAXSendTool
                 case "576(業務局モード)":
                 default:
                     return 576;
+            }
+        }
+
+        /// <summary>
+        /// 回転数
+        /// </summary>
+        /// <returns></returns>
+        private int RPMConboBoxGetSelectItem()
+        {
+            // 設定
+            if (RPMSelectComboBox.SelectedIndex == -1)
+            {
+                // 未選択の場合は120
+                return 120;
+            }
+            else
+            {
+                // それ以外は選択された値
+                return int.Parse(RPMSelectComboBox.SelectedItem.ToString().Replace("回転", string.Empty));
             }
         }
 
@@ -705,7 +733,39 @@ namespace HamFAXSendTool
         private string FAXStopSignalGenerator()
         {
             // 戻し
-            return new CommonProcessClass().FAXStopSignalGenerator();
+            return new CommonProcessClass().FAXStopSignalGenerator(RPMConboBoxGetSelectItem());
+        }
+
+        /// <summary>
+        /// 回転数コンボ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RPMSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // 判定
+            if (((ComboBox)sender).SelectedIndex == -1)
+            {
+                // NG
+                return;
+            }
+            else
+            {
+                // 保存関数へ
+                new SettingClass().RPMValueSave(((ComboBox)sender).SelectedItem.ToString().Replace("回転", string.Empty));
+
+                // Pict判定
+                if (PictCheckedListBox.CheckedItems.Count > 0 || IOCComboBox.SelectedIndex >= 0)
+                {
+                    // OK
+                    SendButton.Enabled = true;
+                }
+                else
+                {
+                    // NG
+                    return;
+                }
+            }
         }
 
         /// <summary>
@@ -723,8 +783,11 @@ namespace HamFAXSendTool
             }
             else
             {
+                // 保存関数へ
+                new SettingClass().IOCValueSave(((ComboBox)sender).SelectedText);
+
                 // Pict判定
-                if (PictCheckedListBox.CheckedItems.Count > 0)
+                if (PictCheckedListBox.CheckedItems.Count > 0 || RPMSelectComboBox.SelectedIndex >= 0)
                 {
                     // OK
                     SendButton.Enabled = true;
@@ -734,9 +797,6 @@ namespace HamFAXSendTool
                     // NG
                     return;
                 }
-
-                // 保存関数へ
-                new SettingClass().IOCValueSave(((ComboBox)sender).SelectedText);
             }
         }
 

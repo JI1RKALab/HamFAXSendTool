@@ -30,7 +30,7 @@ namespace net.sictransit.wefax
             whiteBar = Enumerable.Repeat(1f, resolution / 20).ToArray();
         }
 
-        public void Fax(string imageFilename, string audioFilename, BinaryCodedHeader bch)
+        public void Fax(string imageFilename, string audioFilename, int rpm, BinaryCodedHeader bch)
         {
             Log.Information($"image input: {imageFilename}");
 
@@ -50,7 +50,7 @@ namespace net.sictransit.wefax
 
             Log.Information($"audio output: {audioFilename}");
 
-            var toneGenerator = new ToneGenerator(imageWidth, whiteBar, sampleRate, carrier, deviation);
+            var toneGenerator = new ToneGenerator(imageWidth, whiteBar, sampleRate, carrier, deviation, rpm);
 
             var start = toneGenerator.GenerateStart(is288Flag);
 
@@ -81,11 +81,11 @@ namespace net.sictransit.wefax
             writer.WriteSamples(stop, 0, stop.Length);
         }
 
-        public void FAXStopSignalGenerator(string FilePath)
+        public void FAXStopSignalGenerator(string FilePath, int RPMVlaue)
         {
             using (WaveFileWriter writer = new(FilePath, new WaveFormat(sampleRate, 1)))
             {
-                ToneGenerator StopToneGenerator = new (0, whiteBar, sampleRate, carrier, deviation);
+                ToneGenerator StopToneGenerator = new(0, whiteBar, sampleRate, carrier, deviation, RPMVlaue);
 
                 float[] StopData = StopToneGenerator.GenerateStop();
 
