@@ -18,17 +18,17 @@ namespace net.sictransit.wefax
         private readonly int rpmSetting;
         private readonly bool isOver120;
 
-        public ToneGenerator(int imageWidth, float[] whiteBar, int sampleRate, int carrier, int deviation,int rpm = 120)
+        public ToneGenerator(int imageWidth, float[] whiteBar, int sampleRate, int carrier, int deviation, int rpm = 120)
         {
             this.imageWidth = imageWidth;
             this.whiteBar = whiteBar;
             this.carrier = carrier;
             this.deviation = deviation;
 
-            switch (rpm) 
+            switch (rpm)
             {
                 case 60:
-               case     240:
+                case 240:
                     rpmSetting = 2;
                     break;
 
@@ -50,7 +50,7 @@ namespace net.sictransit.wefax
             }
             else
             {
-                lineLength = baseSampleRate/rpmSetting;
+                lineLength = baseSampleRate / rpmSetting;
                 isOver120 = true;
             }
 
@@ -73,9 +73,10 @@ namespace net.sictransit.wefax
 
             if (isOver120)
             {
-                startSignalValue = baseStartSignal/rpmSetting;
+                startSignalValue = baseStartSignal / rpmSetting;
                 startSignalLength *= rpmSetting;
-            } else 
+            }
+            else
             {
                 startSignalValue = baseStartSignal * rpmSetting;
                 startSignalLength /= rpmSetting;
