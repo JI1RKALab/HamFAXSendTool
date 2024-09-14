@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0-windows7.0</TargetFramework>
+    <TargetFramework>net8.0-windows7.0</TargetFramework>
     <RootNamespace>net.sictransit.wefax</RootNamespace>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <StartupObject>net.sictransit.wefax.Program</StartupObject>
