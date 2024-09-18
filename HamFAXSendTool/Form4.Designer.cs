@@ -32,6 +32,8 @@
             PDFPictureBox = new PictureBox();
             SelectPageComboBox = new ComboBox();
             SelectButton = new Button();
+            PreparingLabel = new Label();
+            PageSelectLabel = new Label();
             ((System.ComponentModel.ISupportInitialize)PDFPictureBox).BeginInit();
             SuspendLayout();
             // 
@@ -46,27 +48,54 @@
             // SelectPageComboBox
             // 
             SelectPageComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            SelectPageComboBox.Enabled = false;
             SelectPageComboBox.FormattingEnabled = true;
             SelectPageComboBox.Location = new Point(528, 234);
             SelectPageComboBox.Name = "SelectPageComboBox";
             SelectPageComboBox.Size = new Size(200, 28);
-            SelectPageComboBox.TabIndex = 1;
+            SelectPageComboBox.TabIndex = 3;
             SelectPageComboBox.SelectedIndexChanged += SelectPageComboBox_SelectedIndexChanged;
             // 
             // SelectButton
             // 
+            SelectButton.Enabled = false;
+            SelectButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold);
             SelectButton.Location = new Point(528, 662);
             SelectButton.Name = "SelectButton";
             SelectButton.Size = new Size(200, 79);
-            SelectButton.TabIndex = 2;
-            SelectButton.Text = "button1";
+            SelectButton.TabIndex = 4;
+            SelectButton.Text = "選択";
             SelectButton.UseVisualStyleBackColor = true;
+            SelectButton.Click += SelectButton_Click;
+            // 
+            // PreparingLabel
+            // 
+            PreparingLabel.AutoSize = true;
+            PreparingLabel.Font = new Font("Yu Gothic UI", 16F, FontStyle.Bold);
+            PreparingLabel.Location = new Point(524, 85);
+            PreparingLabel.Name = "PreparingLabel";
+            PreparingLabel.Size = new Size(218, 37);
+            PreparingLabel.TabIndex = 1;
+            PreparingLabel.Text = "PDF読み込み中...";
+            // 
+            // PageSelectLabel
+            // 
+            PageSelectLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            PageSelectLabel.AutoSize = true;
+            PageSelectLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
+            PageSelectLabel.Location = new Point(528, 203);
+            PageSelectLabel.Name = "PageSelectLabel";
+            PageSelectLabel.Size = new Size(119, 28);
+            PageSelectLabel.TabIndex = 2;
+            PageSelectLabel.Text = "ページ数選択";
             // 
             // Form4
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(740, 753);
+            Controls.Add(PageSelectLabel);
+            Controls.Add(PreparingLabel);
             Controls.Add(SelectButton);
             Controls.Add(SelectPageComboBox);
             Controls.Add(PDFPictureBox);
@@ -78,6 +107,7 @@
             Load += Form4_Load;
             ((System.ComponentModel.ISupportInitialize)PDFPictureBox).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -85,5 +115,7 @@
         private PictureBox PDFPictureBox;
         private ComboBox SelectPageComboBox;
         private Button SelectButton;
+        private Label PreparingLabel;
+        private Label PageSelectLabel;
     }
 }

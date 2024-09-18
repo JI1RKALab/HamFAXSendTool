@@ -36,6 +36,13 @@ namespace HamFAXSendTool
                     Console.Write("OK");
                 }
             }
+
+            // PDFで起こした画像があればそれも消す
+            new DirectoryInfo(Directory.GetParent(Application.ExecutablePath)!.FullName).GetFiles("SendPictPDF_*.png",SearchOption.AllDirectories).ToList().ForEach(x => 
+            {
+                // 削除
+                File.Delete(x.FullName);
+            });
         }
 
         /// <summary>

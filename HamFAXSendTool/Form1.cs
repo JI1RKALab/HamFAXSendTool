@@ -1,4 +1,3 @@
-using HamFAXSendTool.Properties;
 using NAudio.Wave;
 using net.sictransit.wefax;
 using System.Diagnostics;
@@ -222,15 +221,39 @@ namespace HamFAXSendTool
             using (OpenFileDialog FileDialog = new())
             {
                 // 設定
-                FileDialog.Filter = "Image File(*.bmp,*.jpg,*.png,*.tif)|*.bmp;*.jpg;*.png;*.tif|Bitmap(*.bmp)|*.bmp|Jpeg(*.jpg)|*.jpg|PNG(*.png)|*.png";
+                FileDialog.Filter = "Image & Doc File(*.bmp,*.jpg,*.png,*.tif,*.pdf)|*.bmp;*.jpg;*.png;*.tif;*.pdf|Bitmap(*.bmp)|*.bmp|Jpeg(*.jpg)|*.jpg|PNG(*.png)|*.png|PDF(*.pdf)|*.pdf";
                 FileDialog.FilterIndex = 0;
                 FileDialog.RestoreDirectory = true;
 
                 // 判定
                 if (FileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // 名前
-                    ImagePath = FileDialog.FileName;
+                    // PDF?
+                    if (Path.GetExtension(FileDialog.FileName) == ".pdf") 
+                    {
+                        // PDF
+                        Form4 PDFForm = new Form4(FileDialog.FileName);
+
+                        // ダイアログShow
+                        PDFForm.ShowDialog();
+
+                        // 閉じた際、イメージが生成されている?
+                        if (string.IsNullOrWhiteSpace(PDFForm.SelectImagePath))
+                        {
+                            // ない場合はリターン
+                            return;
+                        }
+                        else
+                        {
+                            //　イメージ設定
+                            ImagePath = PDFForm.SelectImagePath;
+                        }
+                    } 
+                    else
+                    {
+                        // 名前
+                        ImagePath = FileDialog.FileName;
+                    }
                 }
                 else
                 {

@@ -64,12 +64,12 @@
             // PictSelectButton
             // 
             PictSelectButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            PictSelectButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            PictSelectButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold);
             PictSelectButton.Location = new Point(1002, 37);
             PictSelectButton.Name = "PictSelectButton";
             PictSelectButton.Size = new Size(217, 48);
             PictSelectButton.TabIndex = 2;
-            PictSelectButton.Text = "画像選択";
+            PictSelectButton.Text = "画像/PDF選択";
             PictSelectButton.UseVisualStyleBackColor = true;
             PictSelectButton.Click += PictSelectButton_Click;
             // 
@@ -77,7 +77,7 @@
             // 
             SendButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             SendButton.Enabled = false;
-            SendButton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            SendButton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             SendButton.Location = new Point(1002, 384);
             SendButton.Name = "SendButton";
             SendButton.Size = new Size(217, 48);
@@ -91,7 +91,7 @@
             StopButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             StopButton.AutoSize = true;
             StopButton.Enabled = false;
-            StopButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            StopButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold);
             StopButton.Location = new Point(1002, 559);
             StopButton.Name = "StopButton";
             StopButton.Size = new Size(217, 48);
@@ -103,7 +103,7 @@
             // EndButton
             // 
             EndButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            EndButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            EndButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold);
             EndButton.Location = new Point(1002, 617);
             EndButton.Name = "EndButton";
             EndButton.Size = new Size(217, 48);
@@ -116,7 +116,7 @@
             // 
             StatusTitleLable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             StatusTitleLable.AutoSize = true;
-            StatusTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            StatusTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             StatusTitleLable.Location = new Point(1002, 444);
             StatusTitleLable.Name = "StatusTitleLable";
             StatusTitleLable.Size = new Size(92, 28);
@@ -139,7 +139,7 @@
             // 
             IOCTitleLable.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             IOCTitleLable.AutoSize = true;
-            IOCTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            IOCTitleLable.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             IOCTitleLable.Location = new Point(1002, 240);
             IOCTitleLable.Name = "IOCTitleLable";
             IOCTitleLable.Size = new Size(97, 28);
@@ -150,7 +150,7 @@
             // 
             WAVEBbutton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             WAVEBbutton.Enabled = false;
-            WAVEBbutton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            WAVEBbutton.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             WAVEBbutton.Location = new Point(1002, 326);
             WAVEBbutton.Name = "WAVEBbutton";
             WAVEBbutton.Size = new Size(217, 48);
@@ -202,7 +202,7 @@
             // 
             DoingLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             DoingLabel.AutoSize = true;
-            DoingLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            DoingLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             DoingLabel.Location = new Point(1002, 489);
             DoingLabel.Name = "DoingLabel";
             DoingLabel.Size = new Size(0, 28);
@@ -212,7 +212,7 @@
             // 
             PictRotateButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             PictRotateButton.Enabled = false;
-            PictRotateButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold, GraphicsUnit.Point);
+            PictRotateButton.Font = new Font("Yu Gothic UI", 11F, FontStyle.Bold);
             PictRotateButton.Location = new Point(1002, 95);
             PictRotateButton.Name = "PictRotateButton";
             PictRotateButton.Size = new Size(217, 48);
@@ -224,7 +224,7 @@
             // SendLabel
             // 
             SendLabel.AutoSize = true;
-            SendLabel.Font = new Font("Yu Gothic UI Semibold", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point);
+            SendLabel.Font = new Font("Yu Gothic UI Semibold", 19.8000011F, FontStyle.Bold);
             SendLabel.Location = new Point(14, 40);
             SendLabel.Name = "SendLabel";
             SendLabel.Size = new Size(190, 46);
@@ -236,7 +236,7 @@
             // 
             RPMSelectLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             RPMSelectLabel.AutoSize = true;
-            RPMSelectLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            RPMSelectLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             RPMSelectLabel.Location = new Point(1002, 155);
             RPMSelectLabel.Name = "RPMSelectLabel";
             RPMSelectLabel.Size = new Size(77, 28);
