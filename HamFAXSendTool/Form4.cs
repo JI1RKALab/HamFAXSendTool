@@ -126,6 +126,9 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void SelectPageComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // OK
+            PDFPictureBox.Image.Dispose();
+
             // 画像設定
             PDFPictureBox.Image = new Bitmap(FilePathList[((ComboBox)sender).SelectedIndex]);
         }
@@ -160,15 +163,8 @@ namespace HamFAXSendTool
             // クリア
             PDFPictureBox.Image.Dispose();
 
-            // ベースファイルを削除する
-            Task.Run(async () =>
-            {
-                // 500ms遅延
-                await Task.Delay(500);
-
-                // フォルダ削除
-                Directory.Delete(DirPrth, true);
-            });
+            // フォルダ削除
+            Directory.Delete(DirPrth, true);
         }
     }
 }

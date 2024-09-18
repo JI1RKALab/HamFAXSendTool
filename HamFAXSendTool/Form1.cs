@@ -6,7 +6,7 @@ using Image = System.Drawing.Image;
 
 namespace HamFAXSendTool
 {
-    public partial class Form1 : Form
+    public partial class Form1 : Form, IDisposable
     {
         /// <summary>
         /// FAX停止信号パス
@@ -229,7 +229,7 @@ namespace HamFAXSendTool
                 if (FileDialog.ShowDialog() == DialogResult.OK)
                 {
                     // PDF?
-                    if (Path.GetExtension(FileDialog.FileName) == ".pdf") 
+                    if (Path.GetExtension(FileDialog.FileName) == ".pdf")
                     {
                         // PDF
                         Form4 PDFForm = new Form4(FileDialog.FileName);
@@ -248,7 +248,10 @@ namespace HamFAXSendTool
                             //　イメージ設定
                             ImagePath = PDFForm.SelectImagePath;
                         }
-                    } 
+
+                        // 消し
+                        PDFForm.Dispose();
+                    }
                     else
                     {
                         // 名前
@@ -1067,6 +1070,13 @@ namespace HamFAXSendTool
         /// <param name="e"></param>
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            // PDFで起こした画像があればそれも消す
+            new DirectoryInfo(Path.GetDirectoryName(Application.ExecutablePath)!).GetFiles("SendPictPDF_*.png", SearchOption.AllDirectories).ToList().ForEach(x =>
+            {
+                // 削除
+                File.Delete(x.FullName);
+            });
+
             // 判定
             if (string.IsNullOrWhiteSpace(FAXStopSignalPath))
             {
@@ -1081,6 +1091,8 @@ namespace HamFAXSendTool
                 // 消し
                 FAXStopSignalPath = string.Empty;
             }
+
+            GC.Collect();
         }
 
         /// <summary>
