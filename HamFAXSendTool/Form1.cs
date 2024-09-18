@@ -232,7 +232,7 @@ namespace HamFAXSendTool
                     if (Path.GetExtension(FileDialog.FileName) == ".pdf")
                     {
                         // PDF
-                        Form4 PDFForm = new Form4(FileDialog.FileName);
+                        Form4 PDFForm = new(FileDialog.FileName);
 
                         // ダイアログShow
                         PDFForm.ShowDialog();
