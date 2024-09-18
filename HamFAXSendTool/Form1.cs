@@ -22,12 +22,12 @@ namespace HamFAXSendTool
         /// <summary>
         /// プレイヤー
         /// </summary>
-        WaveOutEvent FAXPlayer = null;
+        WaveOutEvent FAXPlayer = null!;
 
         /// <summary>
         /// メインストリーム
         /// </summary>
-        WaveStream MainOutputStream = null;
+        WaveStream MainOutputStream = null!;
 
         /// <summary>
         /// 強制停止フラグ
@@ -296,7 +296,7 @@ namespace HamFAXSendTool
             else
             {
                 // 保存関数へ
-                new SettingClass().RPMValueSave(((ComboBox)sender).SelectedItem.ToString().Replace("回転", string.Empty));
+                new SettingClass().RPMValueSave(((ComboBox)sender).SelectedItem!.ToString()!.Replace("回転", string.Empty));
 
                 // Pict判定
                 if (SendPictureBox.Image is null || IOCComboBox.SelectedIndex == -1)
@@ -807,7 +807,7 @@ namespace HamFAXSendTool
         private int IOCConboBoxGetSelectItem()
         {
             // 選択
-            switch (IOCComboBox.SelectedItem.ToString())
+            switch (IOCComboBox.SelectedItem!.ToString()!)
             {
                 // HAM1
                 case "288(アマチュア無線モード1)":
@@ -839,7 +839,7 @@ namespace HamFAXSendTool
             else
             {
                 // それ以外は選択された値
-                return int.Parse(RPMSelectComboBox.SelectedItem.ToString().Replace("回転", string.Empty));
+                return int.Parse(RPMSelectComboBox.SelectedItem!.ToString()!.Replace("回転", string.Empty));
             }
         }
 
@@ -1002,16 +1002,16 @@ namespace HamFAXSendTool
         private string FAXSignalGenerator(int RPMValue, int IOCValue)
         {
             // PictBoxに出ている画像を保存する
-            string SendImagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "SendImage.png");
+            string SendImagePath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "SendImage.png");
 
             // 一時保存
             SendPictureBox.Image.Save(SendImagePath, System.Drawing.Imaging.ImageFormat.Png);
 
             // ImageFilePath
-            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly().Location));
+            string TempImagePath = new ImageMake().MakeImage(SendImagePath, Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location));
 
             // WavePath
-            string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav");
+            string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "FAXSignal.wav");
 
             // FAX信号生成に投げ込む
             FaxMachine HamFaxMachine = new(16000, 1900, 400, IOCValue);

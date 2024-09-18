@@ -1,8 +1,7 @@
 {
   "profiles": {
     "HamFAXSendTool": {
-      "commandName": "Project",
-      "commandLineArgs": "TESTMODE"
+      "commandName": "Project"
     }
   }
 }

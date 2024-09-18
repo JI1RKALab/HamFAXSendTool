@@ -7,7 +7,7 @@ namespace HamFAXSendTool
         /// <summary>
         /// シリアルポート
         /// </summary>
-        SerialPortControlClass SerialPortController = null;
+        SerialPortControlClass SerialPortController = null!;
 
         /// <summary>
         /// Comポート
@@ -88,8 +88,8 @@ namespace HamFAXSendTool
                 SettingClass.ComSpeed > 0)
             {
                 // OK
-                SerialPortController = new(ComPortListBox.SelectedItem.ToString(),
-                                                            ComVerListBox.SelectedItem.ToString(),
+                SerialPortController = new(ComPortListBox.SelectedItem!.ToString()!,
+                                                            ComVerListBox.SelectedItem!.ToString()!,
                                                             int.Parse(BPSTextBox.Text));
             }
             else
@@ -171,16 +171,16 @@ namespace HamFAXSendTool
                             SettingButton.Enabled = true;
                             CloseButton.Enabled = true;
                             ComPortChecker = false;
-                            new SettingClass().SettingFileSave(ComPortListBox.SelectedItem.ToString(),
-                                                                ComVerListBox.SelectedItem.ToString(),
+                            new SettingClass().SettingFileSave(ComPortListBox.SelectedItem!.ToString()!,
+                                                                ComVerListBox.SelectedItem!.ToString()!,
                                                                 int.Parse(BPSTextBox.Text),
-                                                                SoundCardListBox.SelectedItem.ToString());
+                                                                SoundCardListBox.SelectedItem!.ToString()!);
                         }
                         else
                         {
                             // 上書き
-                            SerialPortController = new(ComPortListBox.SelectedItem.ToString(),
-                                                                        ComVerListBox.SelectedItem.ToString(),
+                            SerialPortController = new(ComPortListBox.SelectedItem!.ToString()!,
+                                                                        ComVerListBox.SelectedItem!.ToString()!,
                                                                         int.Parse(BPSTextBox.Text));
 
                             // OK
@@ -263,10 +263,10 @@ namespace HamFAXSendTool
             else
             {
                 // 保存
-                new SettingClass().SettingFileSave(ComPortListBox.SelectedItem.ToString(),
-                                                    ComVerListBox.SelectedItem.ToString(),
+                new SettingClass().SettingFileSave(ComPortListBox.SelectedItem!.ToString()!,
+                                                    ComVerListBox.SelectedItem!.ToString()!,
                                                     int.Parse(BPSTextBox.Text),
-                                                    SoundCardListBox.SelectedItem.ToString());
+                                                    SoundCardListBox.SelectedItem!.ToString()!);
 
                 // 閉じる
                 Close();
@@ -340,7 +340,7 @@ namespace HamFAXSendTool
             ListBox TempBox = (ListBox)sender;
 
             // 判定
-            if (TempBox.SelectedItem.ToString().Contains("COM"))
+            if (TempBox.SelectedItem!.ToString()!.Contains("COM"))
             {
                 // OK
                 ComTestButton.Enabled = true;

@@ -8,7 +8,7 @@ namespace HamFAXSendTool
         /// <summary>
         /// 設定
         /// </summary>
-        public SerialPort SerialPort = null;
+        public SerialPort SerialPort = null!;
 
         /// <summary>
         /// 初期化

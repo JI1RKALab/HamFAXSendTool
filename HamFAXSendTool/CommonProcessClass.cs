@@ -17,7 +17,7 @@ namespace HamFAXSendTool
         public void DeleteFAXFile()
         {
             // 判定
-            if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+            if (string.IsNullOrWhiteSpace(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "FAXSignal.wav")))
             {
                 // OK
                 Console.WriteLine("OK");
@@ -25,10 +25,10 @@ namespace HamFAXSendTool
             else
             {
                 // 消す
-                if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav")))
+                if (File.Exists(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "FAXSignal.wav")))
                 {
                     // OK
-                    File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXSignal.wav"));
+                    File.Delete(Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "FAXSignal.wav"));
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace HamFAXSendTool
         public string FAXStopSignalGenerator(int RPMValue)
         {
             // ファイル生成
-            string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly().Location), "FAXStopSignal.wav");
+            string OutputFAXSignalPath = Path.Combine(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)!, "FAXStopSignal.wav");
 
             // 停止信号生成
             new FaxMachine().FAXStopSignalGenerator(OutputFAXSignalPath, RPMValue);
