@@ -34,6 +34,10 @@
             SelectButton = new Button();
             PreparingLabel = new Label();
             PageSelectLabel = new Label();
+            JCCJCGLabel = new Label();
+            JCCJCGTextBox = new TextBox();
+            JCCJCGSelectLabel = new Label();
+            JCCJCGSelectComboBox = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)PDFPictureBox).BeginInit();
             SuspendLayout();
             // 
@@ -63,7 +67,7 @@
             SelectButton.Location = new Point(528, 662);
             SelectButton.Name = "SelectButton";
             SelectButton.Size = new Size(200, 79);
-            SelectButton.TabIndex = 4;
+            SelectButton.TabIndex = 8;
             SelectButton.Text = "選択";
             SelectButton.UseVisualStyleBackColor = true;
             SelectButton.Click += SelectButton_Click;
@@ -89,11 +93,60 @@
             PageSelectLabel.TabIndex = 2;
             PageSelectLabel.Text = "ページ数選択";
             // 
+            // JCCJCGLabel
+            // 
+            JCCJCGLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            JCCJCGLabel.AutoSize = true;
+            JCCJCGLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
+            JCCJCGLabel.Location = new Point(528, 359);
+            JCCJCGLabel.Name = "JCCJCGLabel";
+            JCCJCGLabel.Size = new Size(125, 28);
+            JCCJCGLabel.TabIndex = 6;
+            JCCJCGLabel.Text = "JCCコード入力";
+            // 
+            // JCCJCGTextBox
+            // 
+            JCCJCGTextBox.Enabled = false;
+            JCCJCGTextBox.ImeMode = ImeMode.Off;
+            JCCJCGTextBox.Location = new Point(528, 390);
+            JCCJCGTextBox.Name = "JCCJCGTextBox";
+            JCCJCGTextBox.Size = new Size(200, 27);
+            JCCJCGTextBox.TabIndex = 7;
+            JCCJCGTextBox.KeyPress += JCCJCGTextBox_KeyPress;
+            JCCJCGTextBox.Leave += JCCJCGTextBox_Leave;
+            // 
+            // JCCJCGSelectLabel
+            // 
+            JCCJCGSelectLabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            JCCJCGSelectLabel.AutoSize = true;
+            JCCJCGSelectLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
+            JCCJCGSelectLabel.Location = new Point(528, 282);
+            JCCJCGSelectLabel.Name = "JCCJCGSelectLabel";
+            JCCJCGSelectLabel.Size = new Size(119, 28);
+            JCCJCGSelectLabel.TabIndex = 4;
+            JCCJCGSelectLabel.Text = "ページ数選択";
+            // 
+            // JCCJCGSelectComboBox
+            // 
+            JCCJCGSelectComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
+            JCCJCGSelectComboBox.Enabled = false;
+            JCCJCGSelectComboBox.FormattingEnabled = true;
+            JCCJCGSelectComboBox.Items.AddRange(new object[] { "JCC", "JCG" });
+            JCCJCGSelectComboBox.Location = new Point(528, 313);
+            JCCJCGSelectComboBox.Name = "JCCJCGSelectComboBox";
+            JCCJCGSelectComboBox.Size = new Size(200, 28);
+            JCCJCGSelectComboBox.TabIndex = 5;
+            JCCJCGSelectComboBox.SelectedIndexChanged += JCCJCGSelectComboBox_SelectedIndexChanged;
+            // 
             // Form4
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(740, 753);
+            Controls.Add(JCCJCGSelectLabel);
+            Controls.Add(JCCJCGSelectComboBox);
+            Controls.Add(JCCJCGTextBox);
+            Controls.Add(JCCJCGLabel);
             Controls.Add(PageSelectLabel);
             Controls.Add(PreparingLabel);
             Controls.Add(SelectButton);
@@ -117,5 +170,9 @@
         private Button SelectButton;
         private Label PreparingLabel;
         private Label PageSelectLabel;
+        private Label JCCJCGLabel;
+        private TextBox JCCJCGTextBox;
+        private Label JCCJCGSelectLabel;
+        private ComboBox JCCJCGSelectComboBox;
     }
 }

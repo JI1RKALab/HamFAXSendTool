@@ -113,6 +113,15 @@ namespace HamFAXSendTool
                     // 消し
                     PreparingLabel.Visible = false;
 
+                    // テキストボックス
+                    JCCJCGTextBox.Enabled = true;
+
+                    // 取り敢えず1ページ
+                    JCCJCGSelectComboBox.SelectedIndex = 0;
+
+                    // ボタン
+                    JCCJCGSelectComboBox.Enabled = true;
+
                     // ボタン
                     SelectButton.Enabled = true;
                 }));
@@ -131,6 +140,97 @@ namespace HamFAXSendTool
 
             // 画像設定
             PDFPictureBox.Image = new Bitmap(FilePathList[((ComboBox)sender).SelectedIndex]);
+
+            // コールサイン
+            SendCallSignSet(!string.IsNullOrEmpty(JCCJCGTextBox.Text));
+        }
+
+        /// <summary>
+        /// JCC/JCG入力テキストボックス退去後処理
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void JCCJCGTextBox_Leave(object sender, EventArgs e)
+        {
+            // クリア
+            PDFPictureBox.Image.Dispose();
+
+            // テキストボックス
+            SendCallSignSet(!string.IsNullOrEmpty(JCCJCGTextBox.Text));
+        }
+
+        /// <summary>
+        /// コールサインプロット
+        /// </summary>
+        /// <param name="InputJCCJCGFlag"></param>
+        private void SendCallSignSet(bool InputJCCJCGFlag)
+        {
+            // OK
+            PDFPictureBox.Image.Dispose();
+
+            // 画像設定
+            PDFPictureBox.Image = new Bitmap(FilePathList[SelectPageComboBox.SelectedIndex]);
+
+            // 現状の画像データをロード
+            Bitmap NewBitmMap = new(PDFPictureBox.Image);
+
+            // 新しいグラフィックとして定義
+            Graphics TempGraphics = Graphics.FromImage(NewBitmMap);
+
+            // テキストの色を定義する
+            Brush TextBrush = new SolidBrush(Color.Black);
+
+            // テキストのフォントを定義する
+            Font ArialFont = new("Arial", 15, FontStyle.Regular);
+
+            // 表示するテキスト
+            string InputText = $"DE {SettingClass.UserCallSign}" + (InputJCCJCGFlag ? $" {JCCJCGSelectComboBox.Text}:{JCCJCGTextBox.Text}" : string.Empty);
+
+            // 長方形の定義
+            Rectangle TextRectangle = new(10, 10, 450, 100);
+
+            // 画像上にテキストを描画します
+            TempGraphics.DrawString(InputText, ArialFont, TextBrush, TextRectangle);
+
+            // クリア
+            PDFPictureBox.Image.Dispose();
+
+            // 設定
+            PDFPictureBox.Image = NewBitmMap;
+        }
+
+        /// <summary>
+        /// JCC/JCG選択
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void JCCJCGSelectComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // OK
+            JCCJCGLabel.Text = ((ComboBox)sender).Text + "コード入力";
+
+            // リセット
+            SendCallSignSet(false);
+        }
+
+        /// <summary>
+        /// 数値のみ
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void JCCJCGTextBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //0～9と、バックスペース以外の時は、イベントをキャンセルする
+            if ((e.KeyChar < '0' || '9' < e.KeyChar) && e.KeyChar != '\b')
+            {
+                //OK
+                e.Handled = true;
+            }
+            else
+            {
+                // NG
+                Console.WriteLine(string.Empty);
+            }
         }
 
         /// <summary>
@@ -144,7 +244,7 @@ namespace HamFAXSendTool
             string CopyPath = Path.Combine(Directory.GetParent(DirPrth)!.FullName, $"SendPictPDF_{DateTime.Now.ToString("yyyyMMddHHmmss")}.png");
 
             // コピー
-            File.Copy(FilePathList[SelectPageComboBox.SelectedIndex], CopyPath);
+            PDFPictureBox.Image.Save(CopyPath);
 
             // 設定
             SelectImagePath = CopyPath;
