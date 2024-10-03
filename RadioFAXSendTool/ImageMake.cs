@@ -2,6 +2,8 @@
 using SixLabors.ImageSharp.PixelFormats;
 using System;
 using SixLabors.ImageSharp.Processing;
+using static System.Net.Mime.MediaTypeNames;
+using Image = SixLabors.ImageSharp.Image;
 
 namespace net.sictransit.wefax
 {
@@ -20,15 +22,39 @@ namespace net.sictransit.wefax
             // using
             using (Image ImageData = Image.Load<Rgb24>(ImageFileName))
             {
-                // 回転
-                ImageData.Mutate(x => x.Rotate(RotateMode.Rotate90));
+                /*// 収縮する?
+                ImageData.Mutate(x =>
+                {
+                    // 収縮するか
+                    x.Resize(ImageData.Width/2, ImageData.Height/2);
+                });*/
+
+                // 縦幅
+                int OrignW = ImageData.Width;
+
+                // 横幅
+                int OrignH = ImageData.Height;
+
+                // 回転&縮小
+                ImageData.Mutate(x =>
+                {
+                    // 回転
+                    x.Rotate(RotateMode.Rotate90);
+
+                    // 収縮
+                    x.Resize((int)Math.Round(ImageData.Width * 0.95), (int)Math.Round(ImageData.Height * 0.95));
+                });
 
                 // using
-                using (Image BrackData = new Image<Rgba32>((int)Math.Round(ImageData.Width * 1.045), ImageData.Height))
+                using (Image BrackData = new Image<Rgba32>(OrignH, OrignW))
                 {
                     // 黒データ
                     BrackData.Mutate(x => x.BackgroundColor(Color.Black));
-                    BrackData.Mutate(x => x.DrawImage(ImageData, new Point((int)Math.Round(ImageData.Width * 1.045) - ImageData.Width, 0), opacity: 1f));
+
+                    // 乗せる
+                    BrackData.Mutate(x => x.DrawImage(ImageData, new Point(OrignW - (int)Math.Round(OrignW * 0.9665), 0), opacity: 1f));
+
+                    // セーブ
                     BrackData.SaveAsPng(TempFilePath);
                 }
             }
