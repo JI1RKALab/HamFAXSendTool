@@ -122,9 +122,9 @@
             JCCJCGSelectLabel.Font = new Font("Yu Gothic UI", 12F, FontStyle.Bold);
             JCCJCGSelectLabel.Location = new Point(528, 282);
             JCCJCGSelectLabel.Name = "JCCJCGSelectLabel";
-            JCCJCGSelectLabel.Size = new Size(119, 28);
+            JCCJCGSelectLabel.Size = new Size(126, 28);
             JCCJCGSelectLabel.TabIndex = 4;
-            JCCJCGSelectLabel.Text = "ページ数選択";
+            JCCJCGSelectLabel.Text = "JCC/JCG選択";
             // 
             // JCCJCGSelectComboBox
             // 
