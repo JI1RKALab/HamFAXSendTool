@@ -19,8 +19,8 @@
 
   <ItemGroup>
     <PackageReference Include="FreeSpire.PDF" Version="10.2.0" />
-    <PackageReference Include="NAudio" Version="2.1.0" />
-    <PackageReference Include="System.IO.Ports" Version="7.0.0" />
+    <PackageReference Include="NAudio" Version="2.2.1" />
+    <PackageReference Include="System.IO.Ports" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
